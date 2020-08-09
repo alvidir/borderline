@@ -19,7 +19,7 @@ class GoogleButton extends Component {
     return (
       <React.Fragment>
         <GoogleLogin
-          clientId={process.env.REACT_APP_OAUTH_CLIENT_ID}
+          clientId={process.env.REACT_APP_CLIENT_ID}
           buttonText="Login with Google"
           cookiePolicy="single_host_origin"
           onSuccess={this.onLoginSucceed}
