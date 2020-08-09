@@ -9,48 +9,47 @@ const srv = new LoginClient(process.env.REACT_APP_SOURCE_URL);
 
 /*export default */
 class GoogleButton extends Component {
-  state = {
-    response: null,
-  };
+    state = {
+        response: null,
+    };
 
-  onLoginResponse = (err, response) => {
-    if (err) {
-      console.log("error get reservation", err);
+    onSourceResponse = (err, response) => {
+        if (err) {
+            console.log("error get reservation", err);
+        }
+
+        this.setState({ response: response })
     }
 
-    this.setState({ response: response })
-  }
+    onLoginSucceed = (response) => {
+        console.log(response);
+        console.log(response.profileObj);
 
-  onLoginSucceed = (response) => {
-    console.log(response);
-    console.log(response.profileObj);
+        const req = new User()
+        req.setNickname("test")
+        req.setEmail("test@testing.com")
 
-    const req = new User()
-    req.setNickname("test")
-    req.setEmail("test@testing.com")
+        srv.userLogin(req, {}, this.onSourceResponse)
+    };
 
-    srv.userLogin(req, {}, this.onLoginResponse)
-  };
+    onLoginFailed = (response) => {
+        console.log(response);
+        console.log(response.profileObj);
+    };
 
-  onLoginFailed = (response) => {
-    console.log(response);
-    console.log(response.profileObj);
-  };
-
-  render() {
-    return (
-      <React.Fragment>
-        <script crossorigin src="..."></script>
-        <GoogleLogin
-          clientId={process.env.REACT_APP_CLIENT_ID}
-          buttonText="Login with Google"
-          cookiePolicy="single_host_origin"
-          onSuccess={this.onLoginSucceed}
-          onFailure={this.onLoginFailed}
-        />
-      </React.Fragment>
-    );
-  }
+    render() {
+        return (
+            <React.Fragment>
+                <GoogleLogin
+                    clientId={process.env.REACT_APP_CLIENT_ID}
+                    buttonText="Login with Google"
+                    cookiePolicy="single_host_origin"
+                    onSuccess={this.onLoginSucceed}
+                    onFailure={this.onLoginFailed}
+                />
+            </React.Fragment>
+        );
+    }
 }
 
 export default GoogleButton;
