@@ -1,2 +1,0 @@
-# borderline
-mastermind's frontend
