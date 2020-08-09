@@ -1,22 +1,33 @@
 import React, { Component } from "react";
-import "./google.css";
+import GoogleLogin from "react-google-login";
 
 /*export default */
 class GoogleButton extends Component {
   state = {};
 
+  onLoginSucceed = (response) => {
+    console.log(response);
+    console.log(response.profileObj);
+  };
+
+  onLoginFailed = (response) => {
+    console.log(response);
+    console.log(response.profileObj);
+  };
+
   render() {
     return (
       <React.Fragment>
-        <button className="GoogleButton">Click Me</button>
+        <GoogleLogin
+          clientId={process.env.REACT_APP_OAUTH_CLIENT_ID}
+          buttonText="Login with Google"
+          cookiePolicy="single_host_origin"
+          onSuccess={this.onLoginSucceed}
+          onFailure={this.onLoginFailed}
+        />
       </React.Fragment>
     );
   }
-
-  //parseCount() {
-  //  const { count } = this.state; // get count value from state
-  //  return count === 0 ? "Zero" : count;
-  //}
 }
 
 export default GoogleButton;
