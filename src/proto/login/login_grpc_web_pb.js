@@ -1,6 +1,6 @@
 /* eslint-disable */
 /**
- * @fileoverview gRPC-Web generated client stub for client
+ * @fileoverview gRPC-Web generated client stub for login
  * @enhanceable
  * @public
  */
@@ -13,11 +13,11 @@ const grpc = {};
 grpc.web = require('grpc-web');
 
 
-var proto_client_response_pb = require('../../proto/client/response_pb.js')
+var proto_login_response_pb = require('../../proto/login/response_pb.js')
 
 var proto_model_user_pb = require('../../proto/model/user_pb.js')
 const proto = {};
-proto.client = require('./source_pb.js');
+proto.login = require('./login_pb.js');
 
 /**
  * @param {string} hostname
@@ -27,7 +27,7 @@ proto.client = require('./source_pb.js');
  * @struct
  * @final
  */
-proto.client.LoginClient =
+proto.login.LoginClient =
   function (hostname, credentials, options) {
     if (!options) options = {};
     options['format'] = 'text';
@@ -53,7 +53,7 @@ proto.client.LoginClient =
  * @struct
  * @final
  */
-proto.client.LoginPromiseClient =
+proto.login.LoginPromiseClient =
   function (hostname, credentials, options) {
     if (!options) options = {};
     options['format'] = 'text';
@@ -75,13 +75,13 @@ proto.client.LoginPromiseClient =
  * @const
  * @type {!grpc.web.MethodDescriptor<
  *   !proto.model.User,
- *   !proto.client.Response>}
+ *   !proto.login.Response>}
  */
 const methodDescriptor_Login_UserLogin = new grpc.web.MethodDescriptor(
-  '/client.Login/UserLogin',
+  '/login.Login/UserLogin',
   grpc.web.MethodType.UNARY,
   proto_model_user_pb.User,
-  proto_client_response_pb.Response,
+  proto_login_response_pb.Response,
   /**
    * @param {!proto.model.User} request
    * @return {!Uint8Array}
@@ -89,7 +89,7 @@ const methodDescriptor_Login_UserLogin = new grpc.web.MethodDescriptor(
   function (request) {
     return request.serializeBinary();
   },
-  proto_client_response_pb.Response.deserializeBinary
+  proto_login_response_pb.Response.deserializeBinary
 );
 
 
@@ -97,10 +97,10 @@ const methodDescriptor_Login_UserLogin = new grpc.web.MethodDescriptor(
  * @const
  * @type {!grpc.web.AbstractClientBase.MethodInfo<
  *   !proto.model.User,
- *   !proto.client.Response>}
+ *   !proto.login.Response>}
  */
 const methodInfo_Login_UserLogin = new grpc.web.AbstractClientBase.MethodInfo(
-  proto_client_response_pb.Response,
+  proto_login_response_pb.Response,
   /**
    * @param {!proto.model.User} request
    * @return {!Uint8Array}
@@ -108,7 +108,7 @@ const methodInfo_Login_UserLogin = new grpc.web.AbstractClientBase.MethodInfo(
   function (request) {
     return request.serializeBinary();
   },
-  proto_client_response_pb.Response.deserializeBinary
+  proto_login_response_pb.Response.deserializeBinary
 );
 
 
@@ -117,15 +117,15 @@ const methodInfo_Login_UserLogin = new grpc.web.AbstractClientBase.MethodInfo(
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.Error, ?proto.client.Response)}
+ * @param {function(?grpc.web.Error, ?proto.login.Response)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.client.Response>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.login.Response>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.client.LoginClient.prototype.userLogin =
+proto.login.LoginClient.prototype.userLogin =
   function (request, metadata, callback) {
     return this.client_.rpcCall(this.hostname_ +
-      '/client.Login/UserLogin',
+      '/login.Login/UserLogin',
       request,
       metadata || {},
       methodDescriptor_Login_UserLogin,
@@ -138,18 +138,18 @@ proto.client.LoginClient.prototype.userLogin =
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.client.Response>}
+ * @return {!Promise<!proto.login.Response>}
  *     A native promise that resolves to the response
  */
-proto.client.LoginPromiseClient.prototype.userLogin =
+proto.login.LoginPromiseClient.prototype.userLogin =
   function (request, metadata) {
     return this.client_.unaryCall(this.hostname_ +
-      '/client.Login/UserLogin',
+      '/login.Login/UserLogin',
       request,
       metadata || {},
       methodDescriptor_Login_UserLogin);
   };
 
 
-module.exports = proto.client;
+module.exports = proto.login;
 

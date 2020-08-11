@@ -11,7 +11,9 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-google-login": "^5.1.21",
-    "react-scripts": "3.4.1"
+    "react-scripts": "^3.4.2",
+    "typescript": "^3.9.7",
+    "unsplash-js": "^6.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

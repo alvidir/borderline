@@ -1,0 +1,10 @@
+syntax = "proto3";
+option go_package = "github.com/alvidir/mastermind/proto/login";
+
+package login;
+import public "proto/login/response.proto";
+import public "proto/model/user.proto";
+
+service Login {
+  rpc UserLogin(model.User) returns (login.Response);
+}

@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import GoogleLogin from "react-google-login";
 
 import { User } from "../../proto/model/user_pb"
-import { Response } from "../../proto/client/source_pb"
-import { LoginClient } from "../../proto/client/source_grpc_web_pb"
+import { LoginClient } from "../../proto/login/login_grpc_web_pb"
 
 const srv = new LoginClient(process.env.REACT_APP_SOURCE_URL);
 
@@ -37,6 +36,10 @@ class GoogleButton extends Component {
         console.log(response.profileObj);
     };
 
+    onRequest = () => {
+        console.log("on request");
+    };
+
     render() {
         return (
             <React.Fragment>
@@ -46,6 +49,7 @@ class GoogleButton extends Component {
                     cookiePolicy="single_host_origin"
                     onSuccess={this.onLoginSucceed}
                     onFailure={this.onLoginFailed}
+                    onRequest={this.onRequest}
                 />
             </React.Fragment>
         );
