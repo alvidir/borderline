@@ -1,10 +1,14 @@
 import React, { Component } from "react";
 import GoogleLogin from "react-google-login";
 
-import { User } from "../../proto/model/user_pb"
-import { LoginClient } from "../../proto/login/login_grpc_web_pb"
+import { User } from "../../proto/model/user_pb";
+import { LoginClient } from "../../proto/login/login_grpc_web_pb";
 
-const srv = new LoginClient(process.env.REACT_APP_SOURCE_URL);
+document.cookie = 'cross-site-cookie=google; SameSite=None; Secure';
+
+const source_url = process.env.REACT_APP_SOURCE_URL;
+const client_path = process.env.REACT_APP_SRV_CLIENT_PATH;
+const srv = new LoginClient(source_url + client_path, null, null);
 
 /*export default */
 class GoogleButton extends Component {
@@ -14,7 +18,7 @@ class GoogleButton extends Component {
 
     onSourceResponse = (err, response) => {
         if (err) {
-            console.log("error get reservation", err);
+            console.log("Got an error on login", err);
         }
 
         this.setState({ response: response })
@@ -24,16 +28,16 @@ class GoogleButton extends Component {
         console.log(response);
         console.log(response.profileObj);
 
-        const req = new User()
-        req.setNickname("test")
-        req.setEmail("test@testing.com")
-
-        srv.userLogin(req, {}, this.onSourceResponse)
+        const req = new User();
+        req.setNickname("test");
+        req.setEmail("test@testing.com");
+        
+        srv.userLogin(req, {}, this.onSourceResponse);
     };
 
     onLoginFailed = (response) => {
-        console.log(response);
-        console.log(response.profileObj);
+        console.log(response, this);
+        console.log(response.profileObj, this);
     };
 
     onRequest = () => {

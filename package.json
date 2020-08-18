@@ -11,6 +11,7 @@
     "@types/node-fetch": "^2.5.7",
     "@types/query-string": "^6.3.0",
     "@types/unsplash-js": "^6.0.1",
+    "fetch": "^1.1.0",
     "google-protobuf": "^3.12.4",
     "grpc": "^1.24.3",
     "grpc-tools": "^1.9.1",
@@ -24,6 +25,7 @@
     "react-dom": "^16.13.1",
     "react-google-login": "^5.1.21",
     "react-scripts": "^3.4.3",
+    "request": "^2.88.2",
     "typescript": "^3.9.7",
     "unsplash-js": "^6.0.0"
   },
@@ -35,7 +37,7 @@
     "proto-unsplash": "protoc -I=. ./proto/unsplash/*.proto --plugin ./node_modules/.bin/protoc-gen-grpc-web --js_out=import_style=commonjs:./src --grpc-web_out=import_style=commonjs,mode=grpcwebtext:./src",
     "proto-model": "protoc -I=. ./proto/model/*.proto --plugin ./node_modules/.bin/protoc-gen-grpc-web --js_out=import_style=commonjs:./src --grpc-web_out=import_style=commonjs,mode=grpcwebtext:./src",
     "proto-login": "protoc -I=. ./proto/login/*.proto --plugin ./node_modules/.bin/protoc-gen-grpc-web --js_out=import_style=commonjs:./src --grpc-web_out=import_style=commonjs,mode=grpcwebtext:./src",
-    "proto": "npm run proto-unsplash && npm run proto-model"
+    "proto": "npm run proto-unsplash && npm run proto-model && npm run proto-login"
   },
   "eslintConfig": {
     "extends": "react-app"

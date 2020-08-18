@@ -1,4 +1,3 @@
-/* eslint-disable */
 /**
  * @fileoverview gRPC-Web generated client stub for login
  * @enhanceable
@@ -6,6 +5,10 @@
  */
 
 // GENERATED CODE -- DO NOT EDIT!
+
+
+/* eslint-disable */
+// @ts-nocheck
 
 
 
@@ -28,21 +31,21 @@ proto.login = require('./login_pb.js');
  * @final
  */
 proto.login.LoginClient =
-  function (hostname, credentials, options) {
-    if (!options) options = {};
-    options['format'] = 'text';
+    function(hostname, credentials, options) {
+  if (!options) options = {};
+  options['format'] = 'text';
 
-    /**
-     * @private @const {!grpc.web.GrpcWebClientBase} The client
-     */
-    this.client_ = new grpc.web.GrpcWebClientBase(options);
+  /**
+   * @private @const {!grpc.web.GrpcWebClientBase} The client
+   */
+  this.client_ = new grpc.web.GrpcWebClientBase(options);
 
-    /**
-     * @private @const {string} The hostname
-     */
-    this.hostname_ = hostname;
+  /**
+   * @private @const {string} The hostname
+   */
+  this.hostname_ = hostname;
 
-  };
+};
 
 
 /**
@@ -54,21 +57,21 @@ proto.login.LoginClient =
  * @final
  */
 proto.login.LoginPromiseClient =
-  function (hostname, credentials, options) {
-    if (!options) options = {};
-    options['format'] = 'text';
+    function(hostname, credentials, options) {
+  if (!options) options = {};
+  options['format'] = 'text';
 
-    /**
-     * @private @const {!grpc.web.GrpcWebClientBase} The client
-     */
-    this.client_ = new grpc.web.GrpcWebClientBase(options);
+  /**
+   * @private @const {!grpc.web.GrpcWebClientBase} The client
+   */
+  this.client_ = new grpc.web.GrpcWebClientBase(options);
 
-    /**
-     * @private @const {string} The hostname
-     */
-    this.hostname_ = hostname;
+  /**
+   * @private @const {string} The hostname
+   */
+  this.hostname_ = hostname;
 
-  };
+};
 
 
 /**
@@ -86,7 +89,7 @@ const methodDescriptor_Login_UserLogin = new grpc.web.MethodDescriptor(
    * @param {!proto.model.User} request
    * @return {!Uint8Array}
    */
-  function (request) {
+  function(request) {
     return request.serializeBinary();
   },
   proto_login_response_pb.Response.deserializeBinary
@@ -105,7 +108,7 @@ const methodInfo_Login_UserLogin = new grpc.web.AbstractClientBase.MethodInfo(
    * @param {!proto.model.User} request
    * @return {!Uint8Array}
    */
-  function (request) {
+  function(request) {
     return request.serializeBinary();
   },
   proto_login_response_pb.Response.deserializeBinary
@@ -123,14 +126,14 @@ const methodInfo_Login_UserLogin = new grpc.web.AbstractClientBase.MethodInfo(
  *     The XHR Node Readable Stream
  */
 proto.login.LoginClient.prototype.userLogin =
-  function (request, metadata, callback) {
-    return this.client_.rpcCall(this.hostname_ +
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
       '/login.Login/UserLogin',
       request,
       metadata || {},
       methodDescriptor_Login_UserLogin,
       callback);
-  };
+};
 
 
 /**
@@ -142,13 +145,13 @@ proto.login.LoginClient.prototype.userLogin =
  *     A native promise that resolves to the response
  */
 proto.login.LoginPromiseClient.prototype.userLogin =
-  function (request, metadata) {
-    return this.client_.unaryCall(this.hostname_ +
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
       '/login.Login/UserLogin',
       request,
       metadata || {},
       methodDescriptor_Login_UserLogin);
-  };
+};
 
 
 module.exports = proto.login;
