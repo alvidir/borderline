@@ -6,9 +6,10 @@ import { LoginClient } from "../../proto/login/login_grpc_web_pb";
 
 document.cookie = 'cross-site-cookie=google; SameSite=None; Secure';
 
-const source_url = process.env.REACT_APP_SOURCE_URL;
+const source_url = process.env.REACT_APP_PROTO_URL;
 const client_path = process.env.REACT_APP_SRV_CLIENT_PATH;
 const srv = new LoginClient(source_url + client_path, null, null);
+console.log("set login client on ", source_url + client_path);
 
 /*export default */
 class GoogleButton extends Component {

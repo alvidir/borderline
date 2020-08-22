@@ -25,5 +25,5 @@ export function SingleRestRequest(callback) {
 
 export function SingleProtoRequest(callback) {
     const req = new EmptyRequest();
-    client.single(req, {}, callback);
+    client.getWallpaper(req, {}, callback);
 }

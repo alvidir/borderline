@@ -1,6 +1,11 @@
 import React, { Component } from "react";
-import * as def from './defaults';
 import * as api from "../../apis/unsplash";
+import { Image } from '../../proto/unsplash/api_pb';
+import Reference from './reference';
+import '../../styles/wallpaper.css'
+
+const resolution = 'regular';
+const defWallpaperUrl = process.env.REACT_APP_DEFAULT_WALLPAPER;
 
 class View extends Component {
     state = {
@@ -10,7 +15,7 @@ class View extends Component {
     constructor() {
         super();
         this.state = {
-            wallpaper: def.GetDefaultWallpaper(),
+            wallpaper: new Image(),
         };
     }
 
@@ -24,22 +29,35 @@ class View extends Component {
             console.log("Got an error on updating", err);
             console.log("Response state on failed update: ", response);
         } else {
-            this.setState({ wallpaper: response });
+            this.setState({ wallpaper: response});
             console.log("Wallpaper has been updated")
         }
     }
 
     update() {
-        api.SingleRestRequest(this.onUpdate);
-        //api.SingleProtoRequest(this.onUpdate);
+        //api.SingleRestRequest(this.onUpdate);
+        api.SingleProtoRequest(this.onUpdate);
     }
 
     render() {
-        const img_url = this.state.wallpaper.getUrlsMap().get('small');
-        const img_alt = this.state.wallpaper.getAuthor();
+        let img_url = defWallpaperUrl; 
+        if (this.state.wallpaper && this.state.wallpaper.getUrlsMap()) {
+            img_url = this.state.wallpaper.getUrlsMap().get(resolution);
+        }
+
+        const CustomStyle = {
+            backgroundImage: 'url(' + img_url + ')',
+            backgroundSize: 'cover',
+            overflow: 'hidden',
+        }
 
         return(
-            <img src={img_url} alt={img_alt} />
+            <div style={CustomStyle} className="Wallpaper">
+                <div className="Body UnderHeader OverFooter">
+                {this.props.children}
+                </div>
+                <Reference />
+            </div>
         )
     }
 }

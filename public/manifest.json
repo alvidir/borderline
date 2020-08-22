@@ -1,9 +1,9 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "alvidir.com",
+  "name": "alvidir.com it's a worldbuilding web application",
   "icons": [
     {
-      "src": "alvidir.ico",
+      "src": "alvidir.dark.ico",
       "sizes": "128x128 64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     }

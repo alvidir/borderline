@@ -1,0 +1,12 @@
+syntax = "proto3";
+package unsplash;
+
+// Image description
+message Image {
+  map<string, string> urls = 1;
+  string author = 2;
+  string profile = 3;
+  string profile_image = 4;
+  string bio = 5;
+  int32 likes = 6;
+}

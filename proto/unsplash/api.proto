@@ -1,19 +1,10 @@
 syntax = "proto3";
-package proto;
+package unsplash;
 
-// Image description
-message Image {
-  map<string, string> urls = 1;
-  string author = 2;
-  string profile = 3;
-  string profile_image = 4;
-  string bio = 5;
-  int32 likes = 6;
-}
-
-message EmptyRequest {}
+import public "proto/unsplash/image.proto";
+import public "proto/unsplash/request.proto";
 
 // API Service
 service Api {
-    rpc Single(EmptyRequest) returns (Image);
+    rpc GetWallpaper(EmptyRequest) returns (Image);
 }
