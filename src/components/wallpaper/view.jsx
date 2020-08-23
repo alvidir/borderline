@@ -1,49 +1,36 @@
-import React, { Component } from "react";
-import * as api from "../../apis/unsplash";
-import { Image } from '../../proto/unsplash/api_pb';
-import Reference from './reference';
+import React, { Component } from "react"
+import * as api from "../../apis/unsplash"
+import { Image } from '../../proto/unsplash/api_pb'
+import Reference from './reference'
 import '../../styles/wallpaper.css'
 
-const resolution = 'regular';
-const defWallpaperUrl = process.env.REACT_APP_DEFAULT_WALLPAPER;
+const resolution = 'regular'
 
 class View extends Component {
     state = {
-        wallpaper: undefined,
-    };
-
-    constructor() {
-        super();
-        this.state = {
-            wallpaper: new Image(),
-        };
+        wallpaper: new Image(),
     }
 
     componentDidMount(){
-        this.update();
+        this.update()
     }
 
-    onUpdate = (err, response) => {
-        console.log("on update");
+    onUpdate = async (err, response) => {
         if (err) {
-            console.log("Got an error on updating", err);
-            console.log("Response state on failed update: ", response);
+            console.log("Got an error on updating wallpaper", err)
         } else {
-            this.setState({ wallpaper: response});
-            console.log("Wallpaper has been updated")
+            this.setState({ wallpaper: response})
         }
     }
 
     update() {
-        //api.SingleRestRequest(this.onUpdate);
-        api.SingleProtoRequest(this.onUpdate);
+        //api.SingleRestRequest(this.onUpdate)
+        api.SingleProtoRequest(this.onUpdate)
     }
 
     render() {
-        let img_url = defWallpaperUrl; 
-        if (this.state.wallpaper && this.state.wallpaper.getUrlsMap()) {
-            img_url = this.state.wallpaper.getUrlsMap().get(resolution);
-        }
+        const img_url = this.state.wallpaper.getUrlsMap().get(resolution)
+        const profile_url = this.state.wallpaper.getProfile()
 
         const CustomStyle = {
             backgroundImage: 'url(' + img_url + ')',
@@ -56,10 +43,10 @@ class View extends Component {
                 <div className="Body UnderHeader OverFooter">
                 {this.props.children}
                 </div>
-                <Reference />
+                <Reference profileUrl={profile_url}/>
             </div>
         )
     }
 }
 
-export default View;
+export default View

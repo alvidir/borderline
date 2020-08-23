@@ -10,7 +10,7 @@ export function BuildCustomSwitch(color_off, color_on, color_bg) {
                 color: color_on?? purple[500],
             },
             '&$checked + $track': {
-                backgroundColor: color_bg?? purple[500],
+                backgroundColor: color_on?? purple[500],
             },
         },
         checked: {},

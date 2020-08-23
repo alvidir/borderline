@@ -1,31 +1,42 @@
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
-const DarkModeKey = 'DarkMode';
+export const ThemeKey = 'theme';
+export const LightThemeName = 'light';
+export const DarkThemeName = 'dark';
+export const DefaultTheme = LightThemeName;
 
 class Preferences {
-    state = {
-        dark_mode: false,
-    }
+    observers = [];
+    theme = LightThemeName;
 
     constructor() {
         this.state = {
-            dark_mode: cookies.get(DarkModeKey)?? false,
+            dark_mode: cookies.get(ThemeKey)?? false,
         }
     }
 
-    save() {
-        cookies.set(DarkModeKey, this.state.dark_mode);
-    }
-
-    setDarkMode(enabled) {
-        this.setState({
-            dark_mode: enabled,
+    onUpdate(name) {
+        this.observers.forEach(obj => {
+            obj.onPreferencesUpdate(name);
         })
     }
 
-    getDarkMode() {
-        return this.state.dark_mode;
+    save() {
+        cookies.set(ThemeKey, this.theme);
+    }
+
+    attach(obj) {
+        this.observers.push(obj);
+    }
+
+    setTheme(theme) {
+        this.theme = theme;
+        this.onUpdate(ThemeKey);
+    }
+
+    getTheme() {
+        return this.theme;
     }
 }
 

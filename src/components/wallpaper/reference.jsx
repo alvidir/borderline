@@ -5,20 +5,23 @@ const DefaultTitle = 'Enjoying this picture? Learn more about the artist.'
 
 class Reference extends Component {
     state = {
-        collapsed: true,
+        profile_url: '',
     };
 
-    CollapsedView() {
-        return(
-            <div className="Reference Collapsed">
-                <img src={`${process.env.PUBLIC_URL}/info.icon.svg`} alt='' className="SmallIcon" />
-                <label className="Title">{DefaultTitle}</label>
-            </div>
-        )
+    componentWillReceiveProps(props) {
+        this.setState({ profile_url: props.profileUrl });  
+        console.log(props.profileUrl)
     }
 
     render() {
-        return this.CollapsedView()
+        return(
+            <a href={this.state.profile_url} target="_blank" rel="noopener noreferrer">
+                <div className="Reference Collapsed OverFooter">
+                    <img src={`${process.env.PUBLIC_URL}/info.icon.svg`} alt='' className="SmallIcon" />
+                    <label className="Title">{DefaultTitle}</label>
+                </div>
+            </a>
+        )
     }
 }
 

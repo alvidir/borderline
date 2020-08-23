@@ -4,7 +4,6 @@ import { BuildCustomSwitch } from './factory';
 
 class SwitchButton extends Component {
     state = {
-        checked: false,
         custom: undefined,
         name: 'switch' 
     }
@@ -12,34 +11,31 @@ class SwitchButton extends Component {
     constructor(props) {
         super();
         this.state = {
-            checked: props.checked?? false,
             name: props.name?? 'switch',
-            custom: BuildCustomSwitch(props.ColorOff, props.ColorOn, props.ColorBg),
+
+            custom: BuildCustomSwitch(props.colorOff, props.colorOn, props.colorBg),
         }
-    }
 
-    setHandler(handlerFunc) {
-        this.handleSwitch = handlerFunc;
-    }
-
-    setStyle(ColorOff, ColorOn, ColorBg) {
-        this.setState({
-            custom: BuildCustomSwitch(ColorOff?? this.props.ColorOff,
-                                      ColorOn?? this.props.ColorOn,
-                                      ColorBg?? this.props.ColorBg),
-        });
+        this.handleSwitch = props.handler;
     }
 
     handleSwitch = (event) => {
         this.setState({ checked: !this.state.checked });
     };
 
+    setStyle(colorOff, colorOn, colorBg) {
+        this.setState({
+            custom: BuildCustomSwitch(colorOff?? this.props.colorOff,
+                                      colorOn?? this.props.colorOn,
+                                      colorBg?? this.props.colorBg),
+        });
+    }
+
     render() {
         const CustomSwitch = this.state.custom?? Switch;
 
         return (
             <CustomSwitch
-                checked={this.state.checked}
                 onChange={this.handleSwitch}
                 name={this.state.name}
             />
