@@ -1,18 +1,21 @@
 import React from "react"
 import { Button } from '@material-ui/core'
-import Theme from './theme'
+import Theme from '../theme/theme'
+
+const LoginButtonTitle = 'Log in'
+const SignupButtonTitle = 'Sign up'
 
 class Access extends Theme {
     state = {}
 
     constructor(props) {
         super(props)
-        this.onClick = this.onClick.bind(this)
+        this.onClick = this.onClickHandler.bind(this)
     }
 
-    onClick(e){
+    onClickHandler(name){
         console.log('Clicked')
-        console.log(e)
+        console.log(name)
     }
 
     render() {
@@ -23,13 +26,13 @@ class Access extends Theme {
                 <Button size="small"
                         variant="outlined"
                         className={`Action Signin ${theme}`}
-                        onClick={() => this.onClick('Signin')}>
-                    Sign in
+                        onClick={() => this.onClickHandler('Signin')}>
+                    {LoginButtonTitle}
                 </Button>
                 <Button size="small"
                         className={`Action Signup ${theme}`}
-                        onClick={() => this.onClick('Signup')}>
-                    Sign up
+                        onClick={() => this.onClickHandler('Signup')}>
+                    {SignupButtonTitle}
                 </Button>
             </div>
         )

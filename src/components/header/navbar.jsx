@@ -2,7 +2,7 @@ import React from "react"
 
 import Access from './access'
 import Options from './options'
-import Theme from './theme'
+import Theme from '../theme/theme'
 
 import './styles.css'
 import '../../styles/box.css'
@@ -18,8 +18,8 @@ class Navbar extends Theme {
         return(
             <div className={`Header ${theme}`}>
                 <nav className="Palette">
-                    <Options theme={this.state.theme}/>
-                    <Access theme={this.state.theme}/>
+                    <Options />
+                    <Access />
                 </nav>
             </div>
         )

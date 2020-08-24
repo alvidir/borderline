@@ -9,7 +9,7 @@ class SwitchButton extends Component {
     }
 
     constructor(props) {
-        super();
+        super(props);
         this.state = {
             name: props.name?? 'switch',
 

@@ -1,5 +1,5 @@
 import React from "react"
-import Theme from './theme'
+import Theme from '../theme/theme'
 import './styles.css'
 
 const Title = 'Alvidir'

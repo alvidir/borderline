@@ -1,37 +1,45 @@
 import React, { Fragment } from "react"
-import Preferences, * as PrefKeys from '../../cookies/preferences'
 import Sticker from './sticker'
-import { grey } from '@material-ui/core/colors'
 import { Button } from '@material-ui/core'
 import { MoreHoriz } from '@material-ui/icons'
-import SwitchButton from '../button/switch'
-import Theme from './theme'
+import Theme from '../theme/theme'
+import Menu from '../menu/menu'
+import SearchBar from './search'
 import './styles.css'
 
+const MoreHorizName = 'MoreOps'
+
 class Options extends Theme {
-    state = {}
+    state = {
+        MoreOpsMenuVisible: false
+    }
 
     constructor(props) {
         super(props)
-        this.onSwitchTheme = this.onSwitchTheme.bind(this)
-        this.onClick = this.onClick.bind(this)
+        this.onMouseEnterHandler = this.onMouseEnterHandler.bind(this)
+        this.onMouseLeaveHandler = this.onMouseLeaveHandler.bind(this)
+        this.onClickHanlder = this.onClickHanlder.bind(this)
     }
 
-    onSwitchTheme() {
-        switch (this.getTheme()) {
-            case PrefKeys.LightThemeName:
-                Preferences.setTheme(PrefKeys.DarkThemeName)
-                break
-        
-            default:
-                Preferences.setTheme(PrefKeys.LightThemeName)
-                break
-        }
+    onMouseEnterHandler(name){
+        console.log('Enter')
+        console.log(name)
+        this.setState({
+            MoreOpsMenuVisible: true
+        })
     }
 
-    onClick(e){
+    onMouseLeaveHandler(name){
+        console.log('Leave')
+        console.log(name)
+        this.setState({
+            MoreOpsMenuVisible: false
+        })
+    }
+
+    onClickHanlder(name){
         console.log('Clicked')
-        console.log(e)
+        console.log(name)
     }
 
     render() {
@@ -39,17 +47,18 @@ class Options extends Theme {
 
         return(
             <Fragment>
-                <Sticker className={`Item ${theme}`}W
-                        theme={this.state.theme}/>
-                <Button className="Discret">
+                <Sticker className={`Item ${theme}`}/>
+
+                <Button className="Discret"
+                        onMouseEnter={() => this.onMouseEnterHandler(MoreHorizName)}
+                        onMouseLeave={() => this.onMouseLeaveHandler(MoreHorizName)}>
                     <MoreHoriz className={`Item ${theme}`}
-                            onClick={() =>  this.onClick('MoreOps')}/>
+                               onClick={() =>  this.onClickHanlder(MoreHorizName)}/>
                 </Button>
-                <SwitchButton colorOff={grey[800]}
-                            colorOn={grey[400]}
-                            checked={this.state.theme === PrefKeys.DarkThemeName}
-                            handler={this.onSwitchTheme}
-                            className={`Item ${theme}`}/>
+
+                <SearchBar className={`Item ${theme}`} />
+
+                <Menu visible={this.state.MoreOpsMenuVisible} />
             </Fragment>
         )
     }
