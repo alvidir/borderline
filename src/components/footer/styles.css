@@ -4,12 +4,9 @@
     height: 15px;
     bottom: 0;
 
-    z-index: 1; /*setting at front of all*/
-}
-
-.Footer.Light {
     background-color: #e6e6e6;
     box-shadow: 0 -4px 5px -5px gray;
+    z-index: 1; /*setting at front of all*/
 }
 
 .Footer.Dark {

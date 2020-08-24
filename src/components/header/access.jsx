@@ -1,15 +1,8 @@
 import React, { Component } from "react"
 import Preferences, * as PrefKeys from '../../cookies/preferences'
+import { Button } from '@material-ui/core';
 
-import Access from './access'
-import Options from './options'
-
-import './styles.css'
-import '../../styles/box.css'
-import '../../styles/common.css'
-import './styles.css'
-
-class Navbar extends Component {
+class Access extends Component {
     state = {
         theme: PrefKeys.DefaultTheme,
     }
@@ -18,6 +11,10 @@ class Navbar extends Component {
         super(props)
         Preferences.attach(this)
         this.onPreferencesUpdate = this.onPreferencesUpdate.bind(this)
+
+        this.state = {
+            theme: props.theme?? PrefKeys.DefaultTheme,
+        }
     }
 
     onPreferencesUpdate(name) {
@@ -37,14 +34,21 @@ class Navbar extends Component {
         const theme = this.theme() === PrefKeys.DefaultTheme? '' : this.theme()
 
         return(
-            <div className={`Header ${theme}`}>
-                <nav className="Palette">
-                    <Options theme={this.state.theme}/>
-                    <Access theme={this.state.theme}/>
-                </nav>
+            <div className="Access">
+                <Button size="small"
+                        variant="outlined"
+                        className={`Action Signin ${theme}`}
+                        onClick={() => { console.log('Sign in'); }}>
+                    Sign in
+                </Button>
+                <Button size="small"
+                        className={`Action Signup ${theme}`}
+                        onClick={() => { console.log('Sign up'); }}>
+                    Sign up
+                </Button>
             </div>
         )
     }
 }
 
-export default Navbar
+export default Access;

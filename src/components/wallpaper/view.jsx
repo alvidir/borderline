@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import * as api from "../../apis/unsplash"
 import { Image } from '../../proto/unsplash/api_pb'
 import Reference from './reference'
-import '../../styles/wallpaper.css'
+import './styles.css'
 
 const resolution = 'regular'
 

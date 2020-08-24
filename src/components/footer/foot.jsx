@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import Preferences, * as PrefKeys from '../../cookies/preferences'
-import '../../styles/footer.css'
+import './styles.css'
 
 class Foot extends Component {
     state = {
@@ -26,8 +26,10 @@ class Foot extends Component {
     }
 
     render() {
+        const theme = this.theme() === PrefKeys.DefaultTheme? '' : this.theme()
+
         return(
-            <div className={`Footer ${this.theme()}`}>
+            <div className={`Footer ${theme}`}>
             </div>
         )
     }

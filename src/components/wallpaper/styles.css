@@ -16,18 +16,12 @@
     align-items: center;
 
     float: left;
-    opacity: 0.4;
+    opacity: 0.5;
 }
 
 .Reference.Collapsed:hover {
     background-color: black;
     opacity: 0.8;
-}
-
-.Title {
-    color: white;
-    text-align: left;
-    font-size: 15px;
 }
 
 .Body {
@@ -36,4 +30,18 @@
     height: 90%;
 
     padding: 20px;
+}
+
+.AltTitle {
+    color: white;
+    text-align: left;
+    font-size: 15px;
+    text-shadow: 1px 1px 2px black;
+}
+
+.SmallIcon {
+    height: 20px;
+    width: 20px;
+    padding-right: 10px;
+    color: #00adef;
 }
