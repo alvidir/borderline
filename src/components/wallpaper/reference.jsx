@@ -11,7 +11,6 @@ class Reference extends Component {
 
     componentWillReceiveProps(props) {
         this.setState({ profile_url: props.profileUrl })  
-        console.log(props.profileUrl)
     }
 
     render() {

@@ -1,49 +1,34 @@
-import React, { Component } from "react"
-import Preferences, * as PrefKeys from '../../cookies/preferences'
-import { Button } from '@material-ui/core';
+import React from "react"
+import { Button } from '@material-ui/core'
+import Theme from './theme'
 
-class Access extends Component {
-    state = {
-        theme: PrefKeys.DefaultTheme,
-    }
+class Access extends Theme {
+    state = {}
 
     constructor(props) {
         super(props)
-        Preferences.attach(this)
-        this.onPreferencesUpdate = this.onPreferencesUpdate.bind(this)
-
-        this.state = {
-            theme: props.theme?? PrefKeys.DefaultTheme,
-        }
+        this.onClick = this.onClick.bind(this)
     }
 
-    onPreferencesUpdate(name) {
-        if (name === PrefKeys.ThemeKey) {
-            this.setState({
-                theme: Preferences.getTheme()?? PrefKeys.DefaultTheme,
-            })
-        }
-    }
-
-    theme() {
-        const theme = Preferences.getTheme()
-        return theme.charAt(0).toUpperCase() + theme.slice(1)
+    onClick(e){
+        console.log('Clicked')
+        console.log(e)
     }
 
     render() {
-        const theme = this.theme() === PrefKeys.DefaultTheme? '' : this.theme()
+        const theme = this.getThemeClass()
 
         return(
             <div className="Access">
                 <Button size="small"
                         variant="outlined"
                         className={`Action Signin ${theme}`}
-                        onClick={() => { console.log('Sign in'); }}>
+                        onClick={() => this.onClick('Signin')}>
                     Sign in
                 </Button>
                 <Button size="small"
                         className={`Action Signup ${theme}`}
-                        onClick={() => { console.log('Sign up'); }}>
+                        onClick={() => this.onClick('Signup')}>
                     Sign up
                 </Button>
             </div>

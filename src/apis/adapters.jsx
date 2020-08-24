@@ -4,7 +4,6 @@ function CopyImageUrlsMap(from, to){
     const keys = Object.keys(from);
     keys.forEach(function(value, index, array) {
         to.getUrlsMap().set(value, from[value]);
-        console.log(value, from[value]);
     });
 }  
 

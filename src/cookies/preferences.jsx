@@ -8,12 +8,10 @@ export const DefaultTheme = LightThemeName;
 
 class Preferences {
     observers = [];
-    theme = LightThemeName;
+    theme = DefaultTheme;
 
     constructor() {
-        this.state = {
-            dark_mode: cookies.get(ThemeKey)?? false,
-        }
+        this.theme = cookies.get(ThemeKey)?? DefaultTheme
     }
 
     onUpdate(name) {

@@ -1,38 +1,24 @@
-import React, { Component, Fragment } from "react"
+import React, { Fragment } from "react"
 import Preferences, * as PrefKeys from '../../cookies/preferences'
 import Sticker from './sticker'
 import { grey } from '@material-ui/core/colors'
-import { Button } from '@material-ui/core';
+import { Button } from '@material-ui/core'
 import { MoreHoriz } from '@material-ui/icons'
 import SwitchButton from '../button/switch'
+import Theme from './theme'
 import './styles.css'
 
-class Options extends Component {
-    state = {
-        theme: PrefKeys.DefaultTheme,
-    }
+class Options extends Theme {
+    state = {}
 
     constructor(props) {
         super(props)
-        Preferences.attach(this)
-        this.onPreferencesUpdate = this.onPreferencesUpdate.bind(this)
         this.onSwitchTheme = this.onSwitchTheme.bind(this)
-
-        this.state = {
-            theme: props.theme?? PrefKeys.DefaultTheme,
-        }
-    }
-
-    onPreferencesUpdate(name) {
-        if (name === PrefKeys.ThemeKey) {
-            this.setState({
-                theme: Preferences.getTheme()?? PrefKeys.DefaultTheme,
-            })
-        }
+        this.onClick = this.onClick.bind(this)
     }
 
     onSwitchTheme() {
-        switch (this.state.theme) {
+        switch (this.getTheme()) {
             case PrefKeys.LightThemeName:
                 Preferences.setTheme(PrefKeys.DarkThemeName)
                 break
@@ -43,21 +29,21 @@ class Options extends Component {
         }
     }
 
-    theme() {
-        let theme = Preferences.getTheme()
-        return theme.charAt(0).toUpperCase() + theme.slice(1)
+    onClick(e){
+        console.log('Clicked')
+        console.log(e)
     }
 
     render() {
-        const theme = this.theme() === PrefKeys.DefaultTheme? '' : this.theme()
+        const theme = this.getThemeClass()
 
         return(
-            <Fragment className="Options">
+            <Fragment>
                 <Sticker className={`Item ${theme}`}W
                         theme={this.state.theme}/>
                 <Button className="Discret">
                     <MoreHoriz className={`Item ${theme}`}
-                            onClick={() => { console.log('onClick'); }}/>
+                            onClick={() =>  this.onClick('MoreOps')}/>
                 </Button>
                 <SwitchButton colorOff={grey[800]}
                             colorOn={grey[400]}

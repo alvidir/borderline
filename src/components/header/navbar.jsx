@@ -1,40 +1,19 @@
-import React, { Component } from "react"
-import Preferences, * as PrefKeys from '../../cookies/preferences'
+import React from "react"
 
 import Access from './access'
 import Options from './options'
+import Theme from './theme'
 
 import './styles.css'
 import '../../styles/box.css'
 import '../../styles/common.css'
 import './styles.css'
 
-class Navbar extends Component {
-    state = {
-        theme: PrefKeys.DefaultTheme,
-    }
-
-    constructor(props) {
-        super(props)
-        Preferences.attach(this)
-        this.onPreferencesUpdate = this.onPreferencesUpdate.bind(this)
-    }
-
-    onPreferencesUpdate(name) {
-        if (name === PrefKeys.ThemeKey) {
-            this.setState({
-                theme: Preferences.getTheme()?? PrefKeys.DefaultTheme,
-            })
-        }
-    }
-
-    theme() {
-        const theme = Preferences.getTheme()
-        return theme.charAt(0).toUpperCase() + theme.slice(1)
-    }
+class Navbar extends Theme {
+    state = {}
 
     render() {
-        const theme = this.theme() === PrefKeys.DefaultTheme? '' : this.theme()
+        const theme = this.getThemeClass()
 
         return(
             <div className={`Header ${theme}`}>

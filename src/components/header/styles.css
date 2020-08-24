@@ -2,6 +2,10 @@
     width: 180px;
 }
 
+.Discret:hover {
+    background: transparent !important;
+}
+
 .MainIcon {
     width: 40px;
     height: 40px;
