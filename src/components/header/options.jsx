@@ -4,7 +4,7 @@ import { Button } from '@material-ui/core'
 import { MoreHoriz } from '@material-ui/icons'
 import Theme from '../theme/theme'
 import Menu from '../menu/menu'
-import SearchBar from './search'
+import SearchBar from '../search/search'
 import './styles.css'
 
 const MoreHorizName = 'MoreOps'
@@ -58,7 +58,8 @@ class Options extends Theme {
 
                 <SearchBar className={`Item ${theme}`} />
 
-                <Menu visible={this.state.MoreOpsMenuVisible} />
+                <Menu visible={this.state.MoreOpsMenuVisible}
+                      size="Large"/>
             </Fragment>
         )
     }
