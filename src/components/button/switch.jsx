@@ -7,7 +7,7 @@ class SwitchButton extends Component {
 
     state = {
         custom: undefined,
-        checked: false,
+        checked: undefined,
         onSwitch: undefined,
     }
 
@@ -22,9 +22,15 @@ class SwitchButton extends Component {
         }
     }
 
+    componentDidUpdate() {
+        if (this.state.checked !== this.props.checked){
+            // this lets the Switch animation to finish while the global theme changes as well
+            setTimeout(this.state.onSwitch, 0 )
+        }
+    }
+
     handleSwitchAdapter() {
         this.setState({ checked: !this.state.checked })
-        //this.state.onSwitch(this)
     }
 
     render() {
