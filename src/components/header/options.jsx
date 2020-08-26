@@ -24,16 +24,12 @@ class Options extends Theme {
     }
 
     onMouseEnterHandler(name){
-        console.log('Enter')
-        console.log(name)
         this.setState({
             MoreOpsMenuVisible: true
         })
     }
 
     onMouseLeaveHandler(name){
-        console.log('Leave')
-        console.log(name)
         this.setState({
             MoreOpsMenuVisible: false
         })
@@ -65,7 +61,7 @@ class Options extends Theme {
 
                 <Menu visible={this.state.MoreOpsMenuVisible || this.state.FixMoreOps}
                       size="Large"
-                      items={[<SwitchTheme/>]}/>
+                      items={[<div><label>Night mode</label><SwitchTheme/></div>]}/>
             </Fragment>
         )
     }

@@ -14,8 +14,6 @@ class Access extends Theme {
     }
 
     onClickHandler(name){
-        console.log('Clicked')
-        console.log(name)
     }
 
     render() {

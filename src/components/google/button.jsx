@@ -42,7 +42,7 @@ class GoogleButton extends Component {
     };
 
     onRequest = () => {
-        console.log("on request");
+        
     };
 
     render() {
