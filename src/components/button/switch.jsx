@@ -1,46 +1,45 @@
-import React, { Component } from "react";
-import { Switch } from '@material-ui/core';
-import { BuildCustomSwitch } from './factory';
+import React, { Component } from "react"
+import { BuildCustomSwitch } from './factory'
+import { DefaultTheme } from './templates'
 
 class SwitchButton extends Component {
+    CustomSwitch = undefined
+
     state = {
         custom: undefined,
-        name: 'switch' 
+        checked: false,
+        onSwitch: undefined,
     }
 
     constructor(props) {
-        super(props);
+        super(props)
+        this.handleSwitchAdapter = this.handleSwitchAdapter.bind(this)
+
         this.state = {
-            name: props.name?? 'switch',
-
-            custom: BuildCustomSwitch(props.colorOff, props.colorOn, props.colorBg),
+            custom: props.custom?? DefaultTheme(),
+            checked: props.checked,
+            onSwitch: props.onSwitch,
         }
-
-        this.handleSwitch = props.handler;
     }
 
-    handleSwitch = (event) => {
-        this.setState({ checked: !this.state.checked });
-    };
-
-    setStyle(colorOff, colorOn, colorBg) {
-        this.setState({
-            custom: BuildCustomSwitch(colorOff?? this.props.colorOff,
-                                      colorOn?? this.props.colorOn,
-                                      colorBg?? this.props.colorBg),
-        });
+    handleSwitchAdapter() {
+        this.setState({ checked: !this.state.checked })
+        //this.state.onSwitch(this)
     }
 
     render() {
-        const CustomSwitch = this.state.custom?? Switch;
+        if (!this.CustomSwitch) {
+            this.CustomSwitch = BuildCustomSwitch(this.state.custom)
+        }
 
         return (
-            <CustomSwitch
-                onChange={this.handleSwitch}
+            <this.CustomSwitch
+                onChange={this.handleSwitchAdapter}
+                checked={this.state.checked}
                 name={this.state.name}
             />
-        );
+        )
     }
 }
 
-export default SwitchButton;
+export default SwitchButton

@@ -1,8 +1,8 @@
+import React from "react";
 import { TextField } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles';
-import { BuildCustomStyle } from './styles'
-import React from "react";
 import PropTypes from "prop-types";
+import './styles.css'
 
 function WithCustomizedInputs(props) {
   const { classes } = props;
@@ -14,12 +14,11 @@ function WithCustomizedInputs(props) {
       label={props.label}
       type={props.type}
       size={props.size}
-      margin={props.margin}
       autoComplete={props.autoComplete}
       variant={props.variant}
       onChange={props.onChange}
       InputProps={{
-        className: classes.input
+        className: classes.input,
       }}
     />
   );

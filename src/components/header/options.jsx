@@ -2,16 +2,18 @@ import React, { Fragment } from "react"
 import Sticker from './sticker'
 import { Button } from '@material-ui/core'
 import { MoreHoriz } from '@material-ui/icons'
-import Theme from '../theme/theme'
+import Theme, * as theme from '../theme/theme'
 import Menu from '../menu/menu'
 import SearchBar from '../search/search'
+import SwitchTheme from '../theme/switch'
 import './styles.css'
 
 const MoreHorizName = 'MoreOps'
 
 class Options extends Theme {
     state = {
-        MoreOpsMenuVisible: false
+        MoreOpsMenuVisible: false,
+        FixMoreOps: false,
     }
 
     constructor(props) {
@@ -38,28 +40,32 @@ class Options extends Theme {
     }
 
     onClickHanlder(name){
-        console.log('Clicked')
-        console.log(name)
+        if (name === MoreHorizName){
+            this.setState({
+                FixMoreOps: !this.state.FixMoreOps
+            })
+        }
     }
 
     render() {
-        const theme = this.getThemeClass()
+        const current_theme = theme.getThemeClass()
 
         return(
             <Fragment>
-                <Sticker className={`Item ${theme}`}/>
+                <Sticker className={`Item ${current_theme}`}/>
 
                 <Button className="Discret"
                         onMouseEnter={() => this.onMouseEnterHandler(MoreHorizName)}
-                        onMouseLeave={() => this.onMouseLeaveHandler(MoreHorizName)}>
-                    <MoreHoriz className={`Item ${theme}`}
-                               onClick={() =>  this.onClickHanlder(MoreHorizName)}/>
+                        onMouseLeave={() => this.onMouseLeaveHandler(MoreHorizName)}
+                        onClick={() => this.onClickHanlder(MoreHorizName)}>
+                    <MoreHoriz className={`Item ${current_theme}`}/>
                 </Button>
 
-                <SearchBar className={`Item ${theme}`} />
+                <SearchBar className={`Item ${current_theme}`} />
 
-                <Menu visible={this.state.MoreOpsMenuVisible}
-                      size="Large"/>
+                <Menu visible={this.state.MoreOpsMenuVisible || this.state.FixMoreOps}
+                      size="Large"
+                      items={[<SwitchTheme/>]}/>
             </Fragment>
         )
     }

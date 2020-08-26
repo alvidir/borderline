@@ -1,6 +1,16 @@
 import { Component } from "react"
 import Preferences, * as PrefKeys from '../../cookies/preferences'
 
+export function getTheme() {
+    return Preferences.getTheme()
+}
+
+export function getThemeClass() {
+    let theme = Preferences.getTheme()
+    theme = theme.charAt(0).toUpperCase() + theme.slice(1)
+    return theme === PrefKeys.DefaultTheme? '' : theme
+}
+
 class Theme extends Component {
     state = {
         theme: PrefKeys.DefaultTheme,
@@ -23,16 +33,6 @@ class Theme extends Component {
                 theme: Preferences.getTheme()?? PrefKeys.DefaultTheme,
             })
         }
-    }
-
-    getThemeClass() {
-        let theme = Preferences.getTheme()
-        theme = theme.charAt(0).toUpperCase() + theme.slice(1)
-        return theme === PrefKeys.DefaultTheme? '' : theme
-    }
-
-    getTheme() {
-        return Preferences.getTheme()
     }
 }
 

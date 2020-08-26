@@ -1,35 +1,18 @@
-import React, { Component } from "react"
-import Preferences, * as PrefKeys from '../../cookies/preferences'
+import React from "react"
+import Theme, * as theme from '../theme/theme'
 import './styles.css'
 
-class Foot extends Component {
-    state = {
-        theme: PrefKeys.DefaultTheme,
-    };
+class Foot extends Theme {
+    state = {}
 
     constructor(props) {
         super(props)
-        Preferences.attach(this)
-    }
-
-    onPreferencesUpdate(name) {
-        if (name === PrefKeys.ThemeKey) {
-            this.setState({
-                theme: Preferences.getTheme()?? PrefKeys.DefaultTheme,
-            })
-        }
-    }
-
-    theme() {
-        const theme = this.state.theme
-        return theme.charAt(0).toUpperCase() + theme.slice(1)
+        this.state = {}
     }
 
     render() {
-        const theme = this.theme() === PrefKeys.DefaultTheme? '' : this.theme()
-
         return(
-            <div className={`Footer ${theme}`}>
+            <div className={`Footer ${theme.getThemeClass()}`}>
             </div>
         )
     }

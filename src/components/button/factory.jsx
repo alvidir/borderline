@@ -1,19 +1,24 @@
-import { grey, purple } from '@material-ui/core/colors';
-import { withStyles } from '@material-ui/core/styles';
-import { Switch } from '@material-ui/core';
+import React from "react"
+import PropTypes from "prop-types"
+import { withStyles } from '@material-ui/core/styles'
+import { Switch } from '@material-ui/core'
 
-export function BuildCustomSwitch(color_off, color_on, color_bg) {
-    return withStyles({
-        switchBase: {
-            color: color_off?? grey[50],
-            '&$checked': {
-                color: color_on?? purple[500],
-            },
-            '&$checked + $track': {
-                backgroundColor: color_on?? purple[500],
-            },
-        },
-        checked: {},
-        track: {},
-    })(Switch);
+function WithCustomizedInputs(props) {
+    const { classes } = props
+  
+    return (
+      <Switch
+            className={classes}
+            onChange={props.onChange}
+            checked={props.checked}
+            name={props.name} />
+    )
+}
+  
+WithCustomizedInputs.propTypes = {
+  classes: PropTypes.object.isRequired
+}
+  
+export function BuildCustomSwitch(customStyle) {
+    return withStyles(customStyle)(Switch)
 }

@@ -5,3 +5,11 @@
     top: 43px;
     left: 110px;
 }
+
+.OptionsMenu:focus-within {
+    box-shadow: 0px 1px 4px #b6b6b6;
+}
+
+.OptionsMenu.Dark:focus-within {
+    box-shadow: 0px 1px 4px #090909;
+}

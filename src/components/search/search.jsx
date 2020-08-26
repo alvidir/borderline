@@ -1,9 +1,12 @@
 import React from "react"
-import Theme from '../theme/theme'
+import Theme, * as theme from '../theme/theme'
 import { TextField } from '@material-ui/core'
 import { BuildCustomTextField } from './factory'
 import * as PrefKeys from '../../cookies/preferences'
-import * as Style from './styles'
+import * as Style from './templates'
+import './styles.css'
+
+const LabelText = "Discover worlds"
 
 class SearchBar extends Theme {
     search_text = ''
@@ -19,18 +22,17 @@ class SearchBar extends Theme {
         this.handleChange = this.handleChange.bind(this)
 
         this.state = {
-            search_text: '',
             custom: this.getCustomStyle(),
         }
     }
 
     getCustomStyle() {
-        switch (this.getTheme()) {
+        switch (theme.getTheme()) {
             case PrefKeys.DarkThemeName:
                 return Style.DarkTheme()
         
             default:
-                return Style.LightTheme()
+                return Style.DefaultTheme()
         }
     }
 
@@ -51,16 +53,15 @@ class SearchBar extends Theme {
         const CustomTextField = this.state.custom? BuildCustomTextField(this.state.custom) : TextField
 
         return(
-            <CustomTextField id="main-search"
-                             defaultValue={this.search_text}
-                             className={`SearchBar ${this.props.size}`}
-                             label="Discover worlds"
-                             type="search"
-                             size="small"
-                             margin="light"
-                             autoComplete="on"
-                             variant="outlined"
-                             onChange={this.handleChange}/>
+            <div className={`Shape ${theme.getThemeClass()}`}>
+                <CustomTextField id="main-search"
+                                 defaultValue={this.search_text}
+                                 label={LabelText}
+                                 size="small"
+                                 autoComplete="on"
+                                 variant="outlined"
+                                 onChange={this.handleChange}/>
+            </div>
         )
     }
 }

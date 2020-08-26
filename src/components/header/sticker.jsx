@@ -1,5 +1,5 @@
 import React from "react"
-import Theme from '../theme/theme'
+import Theme, * as theme from '../theme/theme'
 import './styles.css'
 
 const Title = 'Alvidir'
@@ -9,8 +9,8 @@ class Sticker extends Theme {
     state = {}
 
     render() {
-        const theme = this.getThemeClass()
-        const source = `${process.env.PUBLIC_URL}/${this.getTheme()}/alvidir.minimal.png`
+        const current_theme = theme.getThemeClass()
+        const source = `${process.env.PUBLIC_URL}/${theme.getTheme()}/alvidir.minimal.png`
 
         return(
             <a href="https://github.com/alvidir"
@@ -21,8 +21,8 @@ class Sticker extends Theme {
                         alt=''/>
                     
                     <div>
-                        <div className={`MainTitle ${theme}`}>{Title}</div>
-                        <div className={`MainSubtitle ${theme}`}>{Subtitle}</div>
+                        <div className={`MainTitle ${current_theme}`}>{Title}</div>
+                        <div className={`MainSubtitle ${current_theme}`}>{Subtitle}</div>
                     </div>
                 </div>
             </a>
