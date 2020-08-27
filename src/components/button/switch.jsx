@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { BuildCustomSwitch } from './factory'
 import { DefaultTheme } from './templates'
 
-class SwitchButton extends Component {
+export default class SwitchButton extends Component {
     CustomSwitch = undefined
 
     state = {
@@ -47,5 +47,3 @@ class SwitchButton extends Component {
         )
     }
 }
-
-export default SwitchButton

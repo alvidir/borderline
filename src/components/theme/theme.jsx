@@ -11,7 +11,7 @@ export function getThemeClass() {
     return theme === PrefKeys.DefaultTheme? '' : theme
 }
 
-class Theme extends Component {
+export default class Theme extends Component {
     state = {
         theme: PrefKeys.DefaultTheme,
     }
@@ -35,5 +35,3 @@ class Theme extends Component {
         }
     }
 }
-
-export default Theme

@@ -4,7 +4,7 @@ import './styles.css'
 
 const DefaultTitle = 'Enjoying this picture? Learn more about the artist.'
 
-class Reference extends Component {
+export default class Reference extends Component {
     state = {
         profile_url: '',
     }
@@ -24,5 +24,3 @@ class Reference extends Component {
         )
     }
 }
-
-export default Reference

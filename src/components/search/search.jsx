@@ -8,7 +8,7 @@ import './styles.css'
 
 const LabelText = "Discover worlds"
 
-class SearchBar extends Theme {
+export default class SearchBar extends Theme {
     search_text = ''
 
     state = {
@@ -53,7 +53,7 @@ class SearchBar extends Theme {
         const CustomTextField = this.state.custom? BuildCustomTextField(this.state.custom) : TextField
 
         return(
-            <div className={`Shape ${theme.getThemeClass()}`}>
+            <div className={`SearchShape ${theme.getThemeClass()}`}>
                 <CustomTextField id="main-search"
                                  defaultValue={this.search_text}
                                  label={LabelText}
@@ -65,5 +65,3 @@ class SearchBar extends Theme {
         )
     }
 }
-
-export default SearchBar

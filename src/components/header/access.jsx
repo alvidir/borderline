@@ -5,7 +5,7 @@ import Theme, * as theme from '../theme/theme'
 const LoginButtonTitle = 'Log in'
 const SignupButtonTitle = 'Sign up'
 
-class Access extends Theme {
+export default class Access extends Theme {
     state = {}
 
     constructor(props) {
@@ -36,5 +36,3 @@ class Access extends Theme {
         )
     }
 }
-
-export default Access;

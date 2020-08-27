@@ -6,7 +6,7 @@ import './styles.css'
 
 const resolution = 'regular'
 
-class View extends Component {
+export default class View extends Component {
     state = {
         wallpaper: new Image(),
     }
@@ -48,5 +48,3 @@ class View extends Component {
         )
     }
 }
-
-export default View

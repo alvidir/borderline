@@ -5,7 +5,7 @@ import './styles.css'
 const Title = 'Alvidir'
 const Subtitle = "Let's worldbuilding"
 
-class Sticker extends Theme {
+export default class Sticker extends Theme {
     state = {}
 
     render() {
@@ -29,5 +29,3 @@ class Sticker extends Theme {
         )
     }
 }
-
-export default Sticker

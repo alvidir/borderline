@@ -9,7 +9,7 @@ import '../../styles/box.css'
 import '../../styles/common.css'
 import './styles.css'
 
-class Navbar extends Theme {
+export default class Navbar extends Theme {
     state = {}
 
     render() {
@@ -25,5 +25,3 @@ class Navbar extends Theme {
         )
     }
 }
-
-export default Navbar

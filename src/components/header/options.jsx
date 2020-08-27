@@ -4,13 +4,13 @@ import { Button } from '@material-ui/core'
 import { MoreHoriz } from '@material-ui/icons'
 import Theme, * as theme from '../theme/theme'
 import Menu from '../menu/menu'
+import { WithCustomTheme } from '../menu/items/custom'
 import SearchBar from '../search/search'
-import SwitchTheme from '../theme/switch'
 import './styles.css'
 
 const MoreHorizName = 'MoreOps'
 
-class Options extends Theme {
+export default class Options extends Theme {
     state = {
         MoreOpsMenuVisible: false,
         FixMoreOps: false,
@@ -21,6 +21,7 @@ class Options extends Theme {
         this.onMouseEnterHandler = this.onMouseEnterHandler.bind(this)
         this.onMouseLeaveHandler = this.onMouseLeaveHandler.bind(this)
         this.onClickHanlder = this.onClickHanlder.bind(this)
+        this.renderMenuItems = this.renderMenuItems.bind(this)
     }
 
     onMouseEnterHandler(name){
@@ -43,28 +44,33 @@ class Options extends Theme {
         }
     }
 
+    renderMenuItems() {
+        let array = WithCustomTheme([])
+        //array = WithCustomTheme(array)
+        return array
+    }
+
     render() {
-        const current_theme = theme.getThemeClass()
+        const currentTheme = theme.getThemeClass()
+        const menuItems = this.renderMenuItems()
 
         return(
             <Fragment>
-                <Sticker className={`Item ${current_theme}`}/>
+                <Sticker className={`Item ${currentTheme}`}/>
 
                 <Button className="Discret"
                         onMouseEnter={() => this.onMouseEnterHandler(MoreHorizName)}
                         onMouseLeave={() => this.onMouseLeaveHandler(MoreHorizName)}
                         onClick={() => this.onClickHanlder(MoreHorizName)}>
-                    <MoreHoriz className={`Item ${current_theme}`}/>
+                    <MoreHoriz className={`Item ${currentTheme}`}/>
                 </Button>
 
-                <SearchBar className={`Item ${current_theme}`} />
+                <SearchBar className={`Item ${currentTheme}`} />
 
                 <Menu visible={this.state.MoreOpsMenuVisible || this.state.FixMoreOps}
                       size="Large"
-                      items={[<div><label>Night mode</label><SwitchTheme/></div>]}/>
+                      items={menuItems}/>
             </Fragment>
         )
     }
 }
-
-export default Options

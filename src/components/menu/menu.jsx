@@ -1,12 +1,28 @@
 import React from "react"
-import { Card, CardActions, Collapse} from '@material-ui/core';
+import { Card, CardActions, Collapse, CardContent} from '@material-ui/core';
 import { BuildCustomCard } from './factory'
 import * as PrefKeys from '../../cookies/preferences'
 import * as Style from './templates'
 import Theme, * as theme from '../theme/theme'
 import './styles.css'
 
-class Menu extends Theme {
+function onEmptyMenu() {
+    return (
+        <CardContent>
+            <label>Nothing to do here</label>
+        </CardContent>
+    )
+} 
+
+function encapsuleItem(item) {
+    return (
+        <CardActions>
+            {item}
+        </CardActions>
+    )
+}
+
+export default class Menu extends Theme {
     state = {
         visible: false,
         custom: undefined,
@@ -58,24 +74,21 @@ class Menu extends Theme {
 
     render() {
         const CustomCard = this.state.custom? BuildCustomCard(this.state.custom) : Card
-        const menuItems = this.state.items? this.state.items.map((item) =>
-            <div>{item}</div>
-        ) : <label>Nothing to do here</label>;
+        const menuItems = this.state.items && this.state.items.length > 0?
+                          this.state.items.map((item) =>
+                              encapsuleItem(item)
+                          ) : onEmptyMenu();
 
         return(
             <Collapse in={this.props.visible || this.state.visible}
-                      className={`OptionsMenu ${theme.getThemeClass()}`}>
+                className={`OptionsMenu ${theme.getThemeClass()}`}>
                 <CustomCard variant="outlined"
-                      onMouseEnter={this.onMouseEnterHandler}
-                      onMouseLeave={this.onMouseLeaveHandler}>
-                    <CardActions>
+                    onMouseEnter={this.onMouseEnterHandler}
+                    onMouseLeave={this.onMouseLeaveHandler}>
                         {menuItems}
-                    </CardActions>
                 </CustomCard>
             </Collapse>
         )
     }
 
 }
-
-export default Menu

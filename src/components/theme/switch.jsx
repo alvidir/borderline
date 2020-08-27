@@ -3,7 +3,7 @@ import SwitchButton from '../button/switch';
 import Preferences, * as PrefKeys from '../../cookies/preferences'
 import Theme, * as theme from './theme'
 
-class SwitchTheme extends Theme {
+export default class SwitchTheme extends Theme {
     state = {}
     
     constructor(props) {
@@ -32,5 +32,3 @@ class SwitchTheme extends Theme {
         );
     }
 }
-
-export default SwitchTheme;

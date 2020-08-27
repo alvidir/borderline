@@ -1,11 +1,11 @@
-.Shape {
+.SearchShape {
     border-radius: 30px;
 }
 
-.Shape:focus-within {
+.SearchShape:focus-within {
     box-shadow: 0px 1px 4px #b6b6b6;
 }
 
-.Shape.Dark:focus-within {
+.SearchShape.Dark:focus-within {
     box-shadow: 0px 1px 4px #090909;
 }

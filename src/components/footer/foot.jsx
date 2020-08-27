@@ -2,7 +2,7 @@ import React from "react"
 import Theme, * as theme from '../theme/theme'
 import './styles.css'
 
-class Foot extends Theme {
+export default class Foot extends Theme {
     state = {}
 
     constructor(props) {
@@ -17,5 +17,3 @@ class Foot extends Theme {
         )
     }
 }
-
-export default Foot

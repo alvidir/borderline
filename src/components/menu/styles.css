@@ -5,3 +5,55 @@
     top: 43px;
     left: 110px;
 }
+
+.MenuItem {
+    width: 100%;
+    height: 100%;
+}
+
+.MenuItemHeader {
+    color: #009966;
+    font-size: 14px;
+}
+
+.MenuItemHeader.Dark {
+    color: #ff0077;
+}
+
+
+.MenuItemBody {
+    color: #1e1e1e;
+    text-align:center;
+    width: 100%;
+}
+
+.MenuItemBody.Dark {
+    color: #e6e6e6;
+    text-align:center;
+    width: 100%;
+}
+
+.MenuBlock {
+    display: inline;
+    font-size: 15px;
+
+    padding-right: 109px;
+}
+
+.MenuSeparator {
+    border: 1px solid transparent;
+    border-top: 1px dashed #b6b6b6;
+}
+
+.MenuSeparator.Dark {
+    border: 1px solid transparent;
+    border-top: 1px dashed #9e9e9e;
+}
+
+.CardShape {
+    box-shadow: 0px 1px 4px #b6b6b6;
+}
+
+.CardShape.Dark {
+    box-shadow: 0px 1px 4px #090909;
+}
