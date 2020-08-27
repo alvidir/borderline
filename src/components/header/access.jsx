@@ -1,6 +1,6 @@
 import React from "react"
-import { Button } from '@material-ui/core'
-import Theme, * as theme from '../theme/theme'
+import Theme from '../theme/theme'
+import * as Factory from './factory' 
 
 const LoginButtonTitle = 'Log in'
 const SignupButtonTitle = 'Sign up'
@@ -17,21 +17,20 @@ export default class Access extends Theme {
     }
 
     render() {
-        const current_theme = theme.getThemeClass()
+        const LoginButton = Factory.NewLoginButton()
+        const SignupButton = Factory.NewSignupButton()
 
         return(
             <div className="Access">
-                <Button size="small"
+                <LoginButton size="small"
                         variant="outlined"
-                        className={`Action Signin ${current_theme}`}
                         onClick={() => this.onClickHandler('Signin')}>
                     {LoginButtonTitle}
-                </Button>
-                <Button size="small"
-                        className={`Action Signup ${current_theme}`}
+                </LoginButton>
+                <SignupButton size="small"
                         onClick={() => this.onClickHandler('Signup')}>
                     {SignupButtonTitle}
-                </Button>
+                </SignupButton>
             </div>
         )
     }

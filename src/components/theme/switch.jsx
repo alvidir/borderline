@@ -1,5 +1,5 @@
 import React from "react";
-import SwitchButton from '../button/switch';
+import SwitchButton from '../button/switch/switch';
 import Preferences, * as PrefKeys from '../../cookies/preferences'
 import Theme, * as theme from './theme'
 

@@ -84,38 +84,6 @@
 
 .Access {
     margin-left: 100px;
-    width: 200px;
+    width: 300px;
     height: 100%;
-}
-
-.Action {
-    margin-left: 10px !important;
-    margin-right: 10px !important;
-    width: 80px;
-    height: 32px;
-
-    outline: none !important;
-    text-align: center !important;
-    font-weight: inherit !important;
-    font-size: 14px !important;
-}
-
-.Action.Signin {
-    color: #1e1e1e !important;
-    border-color: #1e1e1e !important;
-}
-
-.Action.Signin.Dark {
-    color: #e6e6e6 !important;
-    border-color: #e6e6e6 !important;
-}
-
-.Action.Signup {
-    color: #e6e6e6 !important;
-    background-color: #009966 !important;
-}
-
-.Action.Signup.Dark {
-    color: #e6e6e6 !important;
-    background-color: #009966 !important;
 }
