@@ -5,6 +5,10 @@ export function getTheme() {
     return Preferences.getTheme()
 }
 
+export function onDefaultTheme() {
+    return Preferences.getTheme() === PrefKeys.DefaultTheme
+}
+
 export function getThemeClass() {
     let theme = Preferences.getTheme()
     theme = theme.charAt(0).toUpperCase() + theme.slice(1)

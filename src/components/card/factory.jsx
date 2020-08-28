@@ -1,8 +1,8 @@
 import React from "react";
 import { Card } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import clsx from 'clsx'
 import PropTypes from "prop-types";
-import './styles.css'
 
 export function BuildCustomCard(customStyle) {
     return withStyles(customStyle)(WithCustomizedInputs);
@@ -17,7 +17,7 @@ function WithCustomizedInputs(props) {
 
   return (
     <Card variant={props.variant}
-          className={classes.root}
+          className={clsx(classes.root, props.className)}
           onMouseEnter={props.onMouseEnter}
           onMouseLeave={props.onMouseLeave}>
       {props.children}

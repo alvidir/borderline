@@ -23,12 +23,12 @@ export default class Access extends Theme {
         return(
             <div className="Access">
                 <LoginButton size="small"
-                        variant="outlined"
-                        onClick={() => this.onClickHandler('Signin')}>
+                             variant="outlined"
+                             onClick={() => this.onClickHandler('Signin')}>
                     {LoginButtonTitle}
                 </LoginButton>
                 <SignupButton size="small"
-                        onClick={() => this.onClickHandler('Signup')}>
+                              onClick={() => this.onClickHandler('Signup')}>
                     {SignupButtonTitle}
                 </SignupButton>
             </div>

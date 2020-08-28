@@ -1,7 +1,7 @@
 import React from "react"
 import Theme, * as theme from '../theme/theme'
 import { TextField } from '@material-ui/core'
-import { BuildCustomTextField } from './factory'
+import { BuildCustomTextField } from '..//field/text-factory'
 import * as PrefKeys from '../../cookies/preferences'
 import * as Style from './templates'
 import './styles.css'

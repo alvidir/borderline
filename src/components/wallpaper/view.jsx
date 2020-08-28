@@ -31,6 +31,9 @@ export default class View extends Component {
     render() {
         const img_url = this.state.wallpaper.getUrlsMap().get(resolution)
         const profile_url = this.state.wallpaper.getProfile()
+        const author = this.state.wallpaper.getAuthor()
+        const bio = this.state.wallpaper.getBio()
+        const likes = this.state.wallpaper.getLikes()
 
         const CustomStyle = {
             backgroundImage: 'url(' + img_url + ')',
@@ -43,7 +46,11 @@ export default class View extends Component {
                 <div className="Body UnderHeader OverFooter">
                 {this.props.children}
                 </div>
-                <Reference profileUrl={profile_url}/>
+                <Reference profileUrl={profile_url}
+                           url={img_url}
+                           author={author}
+                           bio={bio}
+                           likes={likes}/>
             </div>
         )
     }
