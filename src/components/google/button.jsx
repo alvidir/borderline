@@ -1,15 +1,15 @@
 import React, { Component } from "react"
 import GoogleLogin from "react-google-login"
 
-import { User } from "../../proto/model/user_pb"
-import { LoginClient } from "../../proto/login/login_grpc_web_pb"
+import { LoginRequest } from "../../proto/session/login_pb"
+import { SessionClient } from "../../proto/session/session_grpc_web_pb"
 
 document.cookie = 'cross-site-cookie=google SameSite=None Secure'
 
 const source_url = process.env.REACT_APP_PROTO_URL
-const client_path = process.env.REACT_APP_SRV_CLIENT_PATH
-const srv = new LoginClient(source_url + client_path, null, null)
-console.log("set login client on ", source_url + client_path)
+const session_srv = process.env.REACT_APP_PROTO_SRV_SESSION
+const session_client = new SessionClient(source_url + session_srv, null, null)
+console.log("Set session client on ", source_url + session_srv)
 
 export default class GoogleButton extends Component {
     state = {
@@ -18,7 +18,7 @@ export default class GoogleButton extends Component {
 
     onSourceResponse = (err, response) => {
         if (err) {
-            console.log("Got an error on login", err)
+            console.log("Got an error from session service", err)
         }
 
         this.setState({ response: response })
@@ -28,11 +28,11 @@ export default class GoogleButton extends Component {
         console.log(response)
         console.log(response.profileObj)
 
-        const req = new User()
+        const req = new LoginRequest()
         req.setNickname("test")
         req.setEmail("test@testing.com")
         
-        srv.userLogin(req, {}, this.onSourceResponse)
+        session_client.userLogin(req, {}, this.onSourceResponse)
     }
 
     onLoginFailed = (response) => {
@@ -48,7 +48,7 @@ export default class GoogleButton extends Component {
         return (
             <React.Fragment>
                 <GoogleLogin
-                    clientId={process.env.REACT_APP_CLIENT_ID}
+                    clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
                     buttonText="Login with Google"
                     cookiePolicy="single_host_origin"
                     onSuccess={this.onLoginSucceed}

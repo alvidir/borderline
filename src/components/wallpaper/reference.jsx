@@ -1,16 +1,18 @@
 import React, { Component } from "react"
 import {Info} from '@material-ui/icons'
-import Miniature from './miniature'
+import Miniature, * as minKeys from './miniature'
+import ListDialog from '../dialog/list'
 import './styles.css'
 import '../../styles/box.css'
 import { Collapse, Fade } from "@material-ui/core"
+import * as factory from './factory'
 
 const DefaultTitle = 'Enjoying this picture? Learn more about the artist.'
 
 export default class Reference extends Component {
     state = {
-        profile_url: '',
         visible: false,
+        shareOpen: false,
     }
 
     constructor(props) {
@@ -18,6 +20,8 @@ export default class Reference extends Component {
         this.onMouseEnterHandler = this.onMouseEnterHandler.bind(this)
         this.onMouseLeaveHandler = this.onMouseLeaveHandler.bind(this)
         this.stringifyIntegerCount = this.stringifyIntegerCount.bind(this)
+        this.handleClick = this.handleClick.bind(this)
+        this.onClose = this.onClose.bind(this)
         this.likes = this.likes.bind(this)
 
         this.state = {
@@ -62,12 +66,47 @@ export default class Reference extends Component {
         })
     }
 
+    handleClick(name) {
+        switch (name) {
+            case minKeys.ProfileName:
+                window.open(this.state.profile_url, "_blank")
+                break
+            
+            case minKeys.ShareName:
+                this.setState({ shareOpen: true })
+                break
+
+            case minKeys.LikeName:
+                break
+            default:
+                break
+        }
+    }
+
+    onClose(name) {
+        switch (name) {            
+            case minKeys.ShareName:
+                this.setState({
+                    shareOpen: false,
+                    visible: false,
+                })
+                break
+            default:
+                break
+        }
+    }
+
     render() {
+        const shareItems = factory.getShareItems(this.props)
+
         return(
-            <div >
+            <div>
+                <ListDialog open={this.state.shareOpen}
+                            onClose={this.onClose}
+                            items={shareItems}/>
                 <Collapse in={this.state.visible}
                           collapsedHeight={40}
-                          className="Miniature"
+                          className='Miniature'
                           onMouseEnter={this.onMouseEnterHandler}
                           onMouseLeave={this.onMouseLeaveHandler}>
                     <Fade in={!this.state.visible}>
@@ -78,11 +117,12 @@ export default class Reference extends Component {
                         </div>
                     </Fade>
                     <Miniature className="Bottom"
-                               onClick={()=> window.open(this.state.profile_url, "_blank")}
+                               onClick={this.handleClick}
                                url={this.props.url}
                                author={this.props.author}
                                bio={this.props.bio}
-                               likes={this.likes()}/>
+                               likes={this.likes()}
+                               profileImage={this.props.profileImage}/>
                 </Collapse>
             </div>
         )

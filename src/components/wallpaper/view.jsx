@@ -1,56 +1,115 @@
-import React, { Component } from "react"
-import * as api from "../../apis/unsplash"
-import { Image } from '../../proto/unsplash/api_pb'
+import React from "react"
 import Reference from './reference'
+import Theme, * as theme from '../theme/theme'
 import './styles.css'
+import fetch from "node-fetch"
+import * as factory from './factory'
 
-const resolution = 'regular'
+const timeout = parseInt(process.env.REACT_APP_WALLPAPER_TIMEOUT) * 60000 // minutes to to ms
+const rest_url = process.env.REACT_APP_UNSPLASH_API_URL
+const wallpaper_srv = rest_url + process.env.REACT_APP_REST_SRV_WALLPAPER
+console.log('Set wallpaper service at ', wallpaper_srv)
 
-export default class View extends Component {
+function CustomLayer(url){
+    return {
+        backgroundImage: 'url(' + url + ')',
+        backgroundSize: 'cover',
+        overflow: 'hidden',
+    }
+}
+
+export default class View extends Theme {
     state = {
-        wallpaper: new Image(),
+        metadata: [],
+        topLayer: undefined,
+        bottomLayer: undefined,
+        topHidden: false,
     }
 
-    componentDidMount(){
-        this.update()
-    }
-
-    onUpdate = async (err, response) => {
-        if (err) {
-            console.log("Got an error on updating wallpaper", err)
-        } else {
-            this.setState({ wallpaper: response})
+    constructor(props) {
+        super(props)
+        this.onUpdate = this.onUpdate.bind(this)
+        this.fromMetadata = this.fromMetadata.bind(this)
+        this.DynamicWallpaper = this.DynamicWallpaper.bind(this)
+        this.getStyleTopLayout = this.getStyleTopLayout.bind(this)
+        this.getStyleBottomLayout = this.getStyleBottomLayout.bind(this)
+        
+        this.state = {
+            metadata: [],
+            topLayer: undefined,
+            bottomLayer: undefined,
+            topHidden: false,
         }
     }
 
-    update() {
-        //api.SingleRestRequest(this.onUpdate)
-        api.SingleProtoRequest(this.onUpdate)
+    componentDidMount() {
+        this.onUpdate()
     }
 
-    render() {
-        const img_url = this.state.wallpaper.getUrlsMap().get(resolution)
-        const profile_url = this.state.wallpaper.getProfile()
-        const author = this.state.wallpaper.getAuthor()
-        const bio = this.state.wallpaper.getBio()
-        const likes = this.state.wallpaper.getLikes()
-
-        const CustomStyle = {
-            backgroundImage: 'url(' + img_url + ')',
-            backgroundSize: 'cover',
-            overflow: 'hidden',
+    getStyleTopLayout(url) {
+        if (!this.state.topHidden) {
+            // If top layer is visible, it must not change. Is the bottom one which has to be updated
+            return this.state.topLayer
         }
+
+        return CustomLayer(url)
+    }
+
+    getStyleBottomLayout(url) {
+        if (this.state.topHidden) {
+            // If top layer is hidden, then the bottom one shall not be updated due its visible.
+            return this.state.bottomLayer
+        }
+
+        return CustomLayer(url)
+    }
+
+    async onUpdate() {
+        const data = await fetch(wallpaper_srv)
+        const wallpaper = await data.json()
+        const url = wallpaper['urls']['regular']
+
+        this.setState({
+            metadata: wallpaper,
+            bottomLayer: this.getStyleBottomLayout(url),
+            topLayer: this.getStyleTopLayout(url),
+            topHidden: !this.state.topHidden,
+        })
+
+        setTimeout(this.onUpdate, timeout/*3000*/);
+    }
+
+    fromMetadata() {
+        return factory.GetMetadata(this.state.metadata, arguments)
+    }
+
+    DynamicWallpaper() {
+        const layerVariant = this.state.topHidden? 'Hidden' : ''
+        const curtainVariant = this.props.hidden? theme.onDefaultTheme()? 'Light' : 'Dark' : 'None'
 
         return(
-            <div style={CustomStyle} className="Wallpaper">
+            <div>
+                <div id="bottom" style={this.state.bottomLayer} className="Wallpaper Layer"/>
+                <div id="top" style={this.state.topLayer} className={`Wallpaper Layer ${layerVariant}`}/>
+                <div className={`Curtain ${curtainVariant}`}/>
+            </div>
+        )
+    }
+
+    render() {        
+        return(
+            <div className='Wallpaper'>
+                <this.DynamicWallpaper/>
                 <div className="Body UnderHeader OverFooter">
-                {this.props.children}
+                    {this.props.children}
                 </div>
-                <Reference profileUrl={profile_url}
-                           url={img_url}
-                           author={author}
-                           bio={bio}
-                           likes={likes}/>
+                <Reference profileUrl={this.fromMetadata('user', 'links', 'html')}
+                           url={this.fromMetadata('urls', 'small')}
+                           author={this.fromMetadata('user', 'name')}
+                           bio={this.fromMetadata('user', 'bio')}
+                           likes={this.fromMetadata('likes')}
+                           profileImage={this.fromMetadata('user', 'profile_image', 'small')}
+                           hidden={this.props.hidden}/>
             </div>
         )
     }

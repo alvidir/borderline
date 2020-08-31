@@ -1,0 +1,15 @@
+syntax = "proto3";
+option go_package = "github.com/alvidir/mastermind/proto/session";
+
+package session;
+
+// LoginRequest description
+message LoginRequest {
+  string nickname = 1;
+  string email = 2;
+}
+
+// LoginResponse description
+message LoginResponse {
+  int32 code = 1;
+}

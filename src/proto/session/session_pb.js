@@ -12,6 +12,5 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
-var proto_unsplash_image_pb = require('../../proto/unsplash/image_pb.js');
-var proto_unsplash_request_pb = require('../../proto/unsplash/request_pb.js');
-goog.object.extend(exports, proto.unsplash);
+var proto_session_login_pb = require('../../proto/session/login_pb.js');
+goog.object.extend(exports, proto.session);

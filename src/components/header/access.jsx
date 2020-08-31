@@ -1,6 +1,7 @@
 import React from "react"
 import Theme from '../theme/theme'
 import * as Factory from './factory' 
+import { Link } from 'react-router-dom'
 
 const LoginButtonTitle = 'Log in'
 const SignupButtonTitle = 'Sign up'
@@ -22,15 +23,19 @@ export default class Access extends Theme {
 
         return(
             <div className="Access">
-                <LoginButton size="small"
-                             variant="outlined"
-                             onClick={() => this.onClickHandler('Signin')}>
-                    {LoginButtonTitle}
-                </LoginButton>
-                <SignupButton size="small"
-                              onClick={() => this.onClickHandler('Signup')}>
-                    {SignupButtonTitle}
-                </SignupButton>
+                <Link to="/login">
+                    <LoginButton size="small"
+                                variant="outlined"
+                                onClick={() => this.onClickHandler('Signin')}>
+                        {LoginButtonTitle}
+                    </LoginButton>
+                </Link>
+                <Link to="/signup">
+                    <SignupButton size="small"
+                                onClick={() => this.onClickHandler('Signup')}>
+                        {SignupButtonTitle}
+                    </SignupButton>
+                </Link>
             </div>
         )
     }

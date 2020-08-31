@@ -1,0 +1,9 @@
+syntax = "proto3";
+option go_package = "github.com/alvidir/mastermind/proto/session";
+
+package session;
+import public "proto/session/login.proto";
+
+service Session {
+  rpc UserLogin(session.LoginRequest) returns (session.LoginResponse);
+}

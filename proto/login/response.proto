@@ -1,9 +1,0 @@
-syntax = "proto3";
-option go_package = "github.com/alvidir/mastermind/proto/login";
-
-package login;
-
-// Response description
-message Response {
-  int32 code = 1;
-}
