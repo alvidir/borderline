@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
 import AppContainer from "./App";
 import * as serviceWorker from "./serviceWorker";
+import "./styles/index.css";
 
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import Home from "./pages/home/Home"

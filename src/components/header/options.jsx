@@ -13,7 +13,7 @@ const MoreHorizName = 'MoreOps'
 export default class Options extends Theme {
     state = {
         MoreOpsMenuVisible: false,
-        FixMoreOps: false,
+        FixMoreOps: false, // Forces the moreops menu to keep open if the user clicks over the three dots button
     }
 
     constructor(props) {
@@ -67,7 +67,7 @@ export default class Options extends Theme {
 
                 <SearchBar className={`Item ${currentTheme}`} />
 
-                <Menu visible={this.state.MoreOpsMenuVisible || this.state.FixMoreOps}
+                <Menu visible={this.state.MoreOpsMenuVisible /*|| this.state.FixMoreOps*/}
                       size="Large"
                       items={menuItems}/>
             </Fragment>

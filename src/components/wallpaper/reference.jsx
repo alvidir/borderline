@@ -1,53 +1,39 @@
 import React, { Component } from "react"
 import {Info} from '@material-ui/icons'
 import Miniature, * as minKeys from './miniature'
-import ListDialog from '../dialog/list'
+import RowedGrid from '../../commons/grid/factory'
+import * as itos from '../../commons/parse/itos'
+import { Collapse, Fade, Dialog, DialogTitle } from "@material-ui/core"
+import ShareItems from './share'
 import './styles.css'
 import '../../styles/box.css'
-import { Collapse, Fade } from "@material-ui/core"
-import * as factory from './factory'
 
 const DefaultTitle = 'Enjoying this picture? Learn more about the artist.'
+const ShareTitle = 'Share post'
 
 export default class Reference extends Component {
+    share = {
+        author: '',
+        url: '',
+        description: '',
+    }
+
     state = {
         visible: false,
-        shareOpen: false,
+        sharing: false,
     }
 
     constructor(props) {
         super(props)
         this.onMouseEnterHandler = this.onMouseEnterHandler.bind(this)
         this.onMouseLeaveHandler = this.onMouseLeaveHandler.bind(this)
-        this.stringifyIntegerCount = this.stringifyIntegerCount.bind(this)
         this.handleClick = this.handleClick.bind(this)
         this.onClose = this.onClose.bind(this)
-        this.likes = this.likes.bind(this)
 
         this.state = {
             visible: props.visible?? false,
+            sharing: false,
         }
-    }
-
-    stringifyIntegerCount(value){
-        if (value < 1e3 ){
-            return value
-        } else if (value < 1e6) {
-            return (value/1e3) + 'K'
-        } else if (value < 1e9){
-            return (value/1e6) + 'M'
-        } else {
-            return (value/1e9) + 'G'
-        }
-    }
-
-    likes() {
-        let likes = this.props.likes?? 0
-        if (typeof likes === 'string'){
-            likes = parseInt(likes, 10 );
-        }
-
-        return this.stringifyIntegerCount(likes)
     }
 
     componentWillReceiveProps(props) {
@@ -73,7 +59,13 @@ export default class Reference extends Component {
                 break
             
             case minKeys.ShareName:
-                this.setState({ shareOpen: true })
+                this.share.author = this.props.author
+                this.share.url = this.props.postUrl
+                this.share.description = this.props.description
+
+                this.setState({
+                    sharing: true,
+                })
                 break
 
             case minKeys.LikeName:
@@ -87,8 +79,8 @@ export default class Reference extends Component {
         switch (name) {            
             case minKeys.ShareName:
                 this.setState({
-                    shareOpen: false,
                     visible: false,
+                    sharing: false,
                 })
                 break
             default:
@@ -97,13 +89,17 @@ export default class Reference extends Component {
     }
 
     render() {
-        const shareItems = factory.getShareItems(this.props)
+        const shareItems = ShareItems(this.share)
 
         return(
             <div>
-                <ListDialog open={this.state.shareOpen}
-                            onClose={this.onClose}
-                            items={shareItems}/>
+                <Dialog onClose={() => this.onClose(minKeys.ShareName)}
+                        onClick={() => this.onClose(minKeys.ShareName)}
+                        open={this.state.sharing}>
+                    <DialogTitle>{`${ShareTitle} by ${this.share.author}`}</DialogTitle>
+                    <RowedGrid items={shareItems} forRow='3' />
+                </Dialog>
+        
                 <Collapse in={this.state.visible}
                           collapsedHeight={40}
                           className='Miniature'
@@ -116,12 +112,13 @@ export default class Reference extends Component {
                             <label className="AltTitle Collapsed AltTitle">{DefaultTitle}</label>
                         </div>
                     </Fade>
+
                     <Miniature className="Bottom"
                                onClick={this.handleClick}
                                url={this.props.url}
                                author={this.props.author}
                                bio={this.props.bio}
-                               likes={this.likes()}
+                               likes={itos.BelittleNumber(this.props.likes?? 0)}
                                profileImage={this.props.profileImage}/>
                 </Collapse>
             </div>

@@ -1,9 +1,6 @@
 import React from "react"
 import Theme, * as theme from '../theme/theme'
-import { TextField } from '@material-ui/core'
-import { BuildCustomTextField } from '..//field/text-factory'
-import * as PrefKeys from '../../cookies/preferences'
-import * as Style from './templates'
+import * as factory from './factory'
 import './styles.css'
 
 const LabelText = "Discover worlds"
@@ -11,38 +8,9 @@ const LabelText = "Discover worlds"
 export default class SearchBar extends Theme {
     search_text = ''
 
-    state = {
-        custom: undefined,
-    }
-
     constructor(props) {
         super(props)
-        this.onPreferencesUpdate = this.onPreferencesUpdate.bind(this)
-        this.getCustomStyle = this.getCustomStyle.bind(this)
         this.handleChange = this.handleChange.bind(this)
-
-        this.state = {
-            custom: this.getCustomStyle(),
-        }
-    }
-
-    getCustomStyle() {
-        switch (theme.getTheme()) {
-            case PrefKeys.DarkThemeName:
-                return Style.DarkTheme()
-        
-            default:
-                return Style.DefaultTheme()
-        }
-    }
-
-    onPreferencesUpdate(name) {
-        if (name === PrefKeys.ThemeKey) {
-            
-            this.setState({
-                custom: this.getCustomStyle(),
-            })
-        }
     }
 
     handleChange(event) {
@@ -50,7 +18,7 @@ export default class SearchBar extends Theme {
     }
 
     render() {
-        const CustomTextField = this.state.custom? BuildCustomTextField(this.state.custom) : TextField
+        const CustomTextField = theme.onDefaultTheme()? factory.DefaultTheme() : factory.DarkTheme()
 
         return(
             <div className={`SearchShape ${theme.getThemeClass()}`}>

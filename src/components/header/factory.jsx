@@ -1,5 +1,5 @@
-import * as SquareButtonFactory from '../button/square/factory'
-import * as SquareButtonTemplate from '../button/square/templates'
+import * as SquareButtonFactory from '../../commons/button/square/factory'
+import * as SquareButtonTemplate from '../../commons/button/square/templates'
 import * as theme from '../theme/theme'
 import * as Pref from '../../cookies/preferences'
 

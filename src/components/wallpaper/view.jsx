@@ -4,19 +4,12 @@ import Theme, * as theme from '../theme/theme'
 import './styles.css'
 import fetch from "node-fetch"
 import * as factory from './factory'
+import * as map from '../../commons/parse/map'
 
-const timeout = parseInt(process.env.REACT_APP_WALLPAPER_TIMEOUT) * 60000 // minutes to to ms
+const timeout = parseInt(process.env.REACT_APP_WALLPAPER_TIMEOUT) * 1000 // seconds to to ms
 const rest_url = process.env.REACT_APP_UNSPLASH_API_URL
 const wallpaper_srv = rest_url + process.env.REACT_APP_REST_SRV_WALLPAPER
 console.log('Set wallpaper service at ', wallpaper_srv)
-
-function CustomLayer(url){
-    return {
-        backgroundImage: 'url(' + url + ')',
-        backgroundSize: 'cover',
-        overflow: 'hidden',
-    }
-}
 
 export default class View extends Theme {
     state = {
@@ -29,7 +22,6 @@ export default class View extends Theme {
     constructor(props) {
         super(props)
         this.onUpdate = this.onUpdate.bind(this)
-        this.fromMetadata = this.fromMetadata.bind(this)
         this.DynamicWallpaper = this.DynamicWallpaper.bind(this)
         this.getStyleTopLayout = this.getStyleTopLayout.bind(this)
         this.getStyleBottomLayout = this.getStyleBottomLayout.bind(this)
@@ -52,7 +44,7 @@ export default class View extends Theme {
             return this.state.topLayer
         }
 
-        return CustomLayer(url)
+        return factory.NewCustomLayer(url)
     }
 
     getStyleBottomLayout(url) {
@@ -61,7 +53,7 @@ export default class View extends Theme {
             return this.state.bottomLayer
         }
 
-        return CustomLayer(url)
+        return factory.NewCustomLayer(url)
     }
 
     async onUpdate() {
@@ -76,11 +68,11 @@ export default class View extends Theme {
             topHidden: !this.state.topHidden,
         })
 
-        setTimeout(this.onUpdate, timeout/*3000*/);
+        setTimeout(this.onUpdate, timeout);
     }
 
     fromMetadata() {
-        return factory.GetMetadata(this.state.metadata, arguments)
+        return map.Nav(this.state.metadata, arguments)
     }
 
     DynamicWallpaper() {
@@ -104,10 +96,12 @@ export default class View extends Theme {
                     {this.props.children}
                 </div>
                 <Reference profileUrl={this.fromMetadata('user', 'links', 'html')}
+                           postUrl={this.fromMetadata('links', 'html')}
                            url={this.fromMetadata('urls', 'small')}
                            author={this.fromMetadata('user', 'name')}
                            bio={this.fromMetadata('user', 'bio')}
                            likes={this.fromMetadata('likes')}
+                           description={this.fromMetadata('description')}
                            profileImage={this.fromMetadata('user', 'profile_image', 'small')}
                            hidden={this.props.hidden}/>
             </div>

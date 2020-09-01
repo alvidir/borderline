@@ -1,6 +1,6 @@
 import React from "react"
 import { Card, CardActions, Collapse, CardContent} from '@material-ui/core';
-import { BuildCustomCard } from '../card/factory'
+import { BuildCustomCard } from '../../commons/card/factory'
 import * as PrefKeys from '../../cookies/preferences'
 import * as Style from './templates'
 import Theme, * as theme from '../theme/theme'

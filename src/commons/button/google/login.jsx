@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import GoogleLogin from "react-google-login"
 
-import { LoginRequest } from "../../proto/session/login_pb"
-import { SessionClient } from "../../proto/session/session_grpc_web_pb"
+import { LoginRequest } from "../../../proto/session/login_pb"
+import { SessionClient } from "../../../proto/session/session_grpc_web_pb"
 
 document.cookie = 'cross-site-cookie=google SameSite=None Secure'
 
