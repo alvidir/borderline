@@ -4,14 +4,14 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from "prop-types";
 
 export function BuildCustomTextField(customStyle) {
-  return withStyles(customStyle)(WithCustomizedInputs);
+  return withStyles(customStyle)(CustomField);
 }
 
 export function ApplyCustomStyle(target, customStyle) {
 return withStyles(customStyle)(target)
 }
 
-function WithCustomizedInputs(props) {
+function CustomField(props) {
   const { classes } = props;
 
   return (
@@ -31,6 +31,6 @@ function WithCustomizedInputs(props) {
   );
 }
 
-WithCustomizedInputs.propTypes = {
+CustomField.propTypes = {
   classes: PropTypes.object.isRequired
 };

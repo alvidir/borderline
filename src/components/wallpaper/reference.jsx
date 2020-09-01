@@ -1,17 +1,17 @@
-import React, { Component } from "react"
-import {Info} from '@material-ui/icons'
-import Miniature, * as minKeys from './miniature'
-import RowedGrid from '../../commons/grid/factory'
+import React from "react"
+import Theme from '../theme/theme' 
+import { Info } from '@material-ui/icons'
+import Miniature from './miniature'
 import * as itos from '../../commons/parse/itos'
-import { Collapse, Fade, Dialog, DialogTitle } from "@material-ui/core"
-import ShareItems from './share'
+import ShareDialog from './share'
+import { Collapse, Fade } from "@material-ui/core"
+import * as factory from './factory'
 import './styles.css'
 import '../../styles/box.css'
 
 const DefaultTitle = 'Enjoying this picture? Learn more about the artist.'
-const ShareTitle = 'Share post'
 
-export default class Reference extends Component {
+export default class Reference extends Theme {
     share = {
         author: '',
         url: '',
@@ -54,11 +54,11 @@ export default class Reference extends Component {
 
     handleClick(name) {
         switch (name) {
-            case minKeys.ProfileName:
+            case factory.ProfileKey:
                 window.open(this.state.profile_url, "_blank")
                 break
             
-            case minKeys.ShareName:
+            case factory.ShareKey:
                 this.share.author = this.props.author
                 this.share.url = this.props.postUrl
                 this.share.description = this.props.description
@@ -68,7 +68,7 @@ export default class Reference extends Component {
                 })
                 break
 
-            case minKeys.LikeName:
+            case factory.LikeKey:
                 break
             default:
                 break
@@ -77,7 +77,7 @@ export default class Reference extends Component {
 
     onClose(name) {
         switch (name) {            
-            case minKeys.ShareName:
+            case factory.ShareKey:
                 this.setState({
                     visible: false,
                     sharing: false,
@@ -89,17 +89,12 @@ export default class Reference extends Component {
     }
 
     render() {
-        const shareItems = ShareItems(this.share)
-
         return(
             <div>
-                <Dialog onClose={() => this.onClose(minKeys.ShareName)}
-                        onClick={() => this.onClose(minKeys.ShareName)}
-                        open={this.state.sharing}>
-                    <DialogTitle>{`${ShareTitle} by ${this.share.author}`}</DialogTitle>
-                    <RowedGrid items={shareItems} forRow='3' />
-                </Dialog>
-        
+                <ShareDialog open={this.state.sharing}
+                             share={this.share}
+                             onClose={this.onClose}
+                             onClick={this.onClose}/>
                 <Collapse in={this.state.visible}
                           collapsedHeight={40}
                           className='Miniature'

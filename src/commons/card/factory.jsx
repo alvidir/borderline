@@ -5,14 +5,14 @@ import clsx from 'clsx'
 import PropTypes from "prop-types";
 
 export function BuildCustomCard(customStyle) {
-    return withStyles(customStyle)(WithCustomizedInputs);
+    return withStyles(customStyle)(CustomCard);
 }
 
 export function ApplyCustomStyle(target, customStyle) {
   return withStyles(customStyle)(target)
 }
 
-function WithCustomizedInputs(props) {
+function CustomCard(props) {
   const { classes } = props;
 
   return (
@@ -25,6 +25,6 @@ function WithCustomizedInputs(props) {
   );
 }
 
-WithCustomizedInputs.propTypes = {
+CustomCard.propTypes = {
   classes: PropTypes.object.isRequired
 };

@@ -5,14 +5,14 @@ import { withStyles } from '@material-ui/core/styles'
 import { Button } from '@material-ui/core'
 
 export function BuildCustomSquare(customStyle) {
-  return withStyles(customStyle)(WithCustomizedInputs)
+  return withStyles(customStyle)(CustomButton)
 }
 
 export function ApplyCustomStyle(target, customStyle) {
   return withStyles(customStyle)(target)
 }
 
-function WithCustomizedInputs(props) {
+function CustomButton(props) {
     const { classes } = props
   
     return (
@@ -26,6 +26,6 @@ function WithCustomizedInputs(props) {
     )
 }
   
-WithCustomizedInputs.propTypes = {
+CustomButton.propTypes = {
   classes: PropTypes.object.isRequired
 }

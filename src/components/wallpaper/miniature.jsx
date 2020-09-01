@@ -6,23 +6,7 @@ import * as factory from './factory'
 import './styles.css'
 import '../../styles/box.css'
 
-export const ProfileName = 'profile'
-export const ShareName = 'share'
-export const LikeName = 'like'
-
 export default class Miniature extends Component {
-    state = {
-        custom: undefined,
-    }
-
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            custom: props.custom,
-        }
-    }
-
     render() {
         const CustomCard = factory.NewMiniatureCard()
 
@@ -30,7 +14,7 @@ export default class Miniature extends Component {
             <CustomCard className={this.props.className}
                         variant='outlined'>
                 <CardActionArea
-                    onClick={() => this.props.onClick(ProfileName)}>
+                    onClick={() => this.props.onClick(factory.ProfileKey)}>
                     <CardMedia component="img"
                                alt={this.props.author}
                                height="140"
@@ -54,13 +38,13 @@ export default class Miniature extends Component {
                 <CardActions className="Reference">
                     <div className="HorizontalBox Middle">
                         <Button className={`Share ${theme.getThemeClass()}`}
-                                onClick={() => this.props.onClick(ShareName)}>
+                                onClick={() => this.props.onClick(factory.ShareKey)}>
                             <Share />
                         </Button>
                     </div>
                     <div className="HorizontalBox Middle Like">
                         <Button className="Like"
-                                onClick={() => this.props.onClick(LikeName)}>
+                                onClick={() => this.props.onClick(factory.LikeKey)}>
                             <label className="Count">{this.props.likes}</label>
                             <Favorite/>
                         </Button>

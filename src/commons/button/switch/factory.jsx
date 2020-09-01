@@ -12,18 +12,18 @@ export function ApplyCustomStyle(target, customStyle) {
   return withStyles(customStyle)(target)
 }
 
-function WithCustomizedInputs(props) {
+function CustomSwitch(props) {
     const { classes } = props
   
     return (
       <Switch
-            className={clsx(classes, props.className)}
+            className={clsx(classes.root, props.className)}
             onChange={props.onChange}
             checked={props.checked}
             name={props.name} />
     )
 }
   
-WithCustomizedInputs.propTypes = {
+CustomSwitch.propTypes = {
   classes: PropTypes.object.isRequired
 }
