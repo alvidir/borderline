@@ -101,8 +101,7 @@ export default class Reference extends Theme {
                         </div>
                     </Fade>
 
-                    <Miniature className="Bottom"
-                               onClick={this.handleClick}
+                    <Miniature onClick={this.handleClick}
                                url={this.props.url}
                                author={this.props.author}
                                bio={this.props.bio}
