@@ -54,10 +54,16 @@
 }
 
 .Miniature {
-    position: absolute;
+    position: fixed;
     border-radius: 4px !important;
     bottom: 15px;
     margin: 15px;
+
+    min-width: 500px !important;
+}
+
+.Miniature.Minimized {
+    width: 40px;
 }
 
 .Reference {
@@ -72,7 +78,6 @@
     top: 50%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
-    
 }
 
 .Like {
@@ -99,10 +104,10 @@
 
 .Body {
     position: fixed;
-    width: 100%;
-    height: 90%;
+    margin-top: 65px;
 
-    padding: 20px;
+    width: 100%;
+    height: 100%;
 }
 
 .Collapsed {
@@ -128,6 +133,12 @@
     margin-left: 10px;
 
     filter: drop-shadow(1px 1px 1px #000000aa);
+
+     /* TRANSITION */
+     -webkit-transition: color 500ms ease-in-out !important;
+     -moz-transition: color 500ms ease-in-out !important;
+     -o-transition: color 500ms ease-in-out !important;
+     transition: color 500ms ease-in-out !important;
 }
 
 .Bio {

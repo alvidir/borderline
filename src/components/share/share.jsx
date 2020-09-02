@@ -62,8 +62,7 @@ export default class ShareDialog extends Component {
         const CustomTitle = factory.NewDialogTitle()
 
         return (
-            <Dialog onClose={this.props.onClose}
-                    onClick={this.props.onClose}
+            <Dialog onClick={this.props.onClick}
                     open={this.props.open}
                     PaperProps={PaperStyle}>
                 <CustomTitle>

@@ -1,5 +1,5 @@
 import React from "react"
-import Theme from '../theme/theme' 
+import Theme, * as theme from '../theme/theme' 
 import { Info } from '@material-ui/icons'
 import Miniature from './miniature'
 import * as itos from '../../commons/parse/itos'
@@ -9,7 +9,9 @@ import * as factory from './factory'
 import './styles.css'
 import '../../styles/box.css'
 
-const DefaultTitle = 'Enjoying this picture? Learn more about the artist.'
+const ShortTitle = 'Enjoying this picture?'
+const LongTitle = `${ShortTitle} Learn more about the artist.`
+const TransitionTime = parseInt(process.env.REACT_APP_TRANSITION_TIME)?? 500 // in ms
 
 export default class Reference extends Theme {
     share = {
@@ -20,6 +22,7 @@ export default class Reference extends Theme {
 
     state = {
         visible: false,
+        variant: undefined,
         sharing: false,
     }
 
@@ -28,25 +31,41 @@ export default class Reference extends Theme {
         this.onMouseEnterHandler = this.onMouseEnterHandler.bind(this)
         this.onMouseLeaveHandler = this.onMouseLeaveHandler.bind(this)
         this.handleClick = this.handleClick.bind(this)
+        this.getIconStyle = this.getIconStyle.bind(this)
         this.hide = this.hide.bind(this)
 
         this.state = {
             visible: props.visible?? false,
+            variant: undefined,
             sharing: false,
         }
     }
 
-    componentWillReceiveProps(props) {
-        this.setState({ profile_url: props.profileUrl })  
+    componentDidUpdate() {
+        if (this.props.hidden &&
+            !this.state.visible &&
+            !this.state.variant){
+
+            setTimeout(() => this.setState({
+                variant: this.state.visible? undefined : 'Minimized'
+            }), TransitionTime)
+
+        } else if (!this.props.hidden &&
+                   this.state.variant) {
+            this.setState({
+                variant: undefined
+            })
+        }
     }
 
     onMouseEnterHandler() {
         this.setState({
             visible: true,
+            variant: undefined,
         })
     }
 
-    onMouseLeaveHandler() {
+    onMouseLeaveHandler() {    
         this.setState({
             visible: false,
         })
@@ -55,7 +74,7 @@ export default class Reference extends Theme {
     handleClick(name) {
         switch (name) {
             case factory.ProfileKey:
-                window.open(this.state.profile_url, "_blank")
+                window.open(this.props.profileUrl, "_blank")
                 break
             
             case factory.ShareKey:
@@ -82,22 +101,30 @@ export default class Reference extends Theme {
         })
     }
 
+    getIconStyle () {
+        return {
+            color: theme.onDefaultTheme() || !this.props.hidden? '#e6e6e6' : '#5e5e5e' 
+        }
+    }
+
     render() {
         return(
             <div>
                 <ShareDialog open={this.state.sharing}
                              share={this.share}
-                             onClose={this.hide}/>
+                             onClick={this.hide}/>
                 <Collapse in={this.state.visible}
                           collapsedHeight={40}
-                          className='Miniature'
+                          className={`Miniature ${this.state.variant}`}
                           onMouseEnter={this.onMouseEnterHandler}
                           onMouseLeave={this.onMouseLeaveHandler}>
                     <Fade in={!this.state.visible}>
                         <div className="Reference">
-                            <Info className="SmallIcon Collapsed SmallIcon"
-                                  style={{ color: 'white' }} />
-                            <label className="AltTitle Collapsed AltTitle">{DefaultTitle}</label>
+                            <Info className="SmallIcon Collapsed"
+                                  style={this.getIconStyle()} />
+                            <label className="AltTitle Collapsed">
+                                {this.props.hidden? undefined : LongTitle }
+                            </label>
                         </div>
                     </Fade>
 

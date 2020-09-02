@@ -1,10 +1,11 @@
 import React from "react"
 import Reference from './reference'
 import Theme, * as theme from '../theme/theme'
-import './styles.css'
 import fetch from "node-fetch"
 import * as factory from './factory'
 import * as map from '../../commons/parse/map'
+import './styles.css'
+import '../header/styles.css'
 
 const timeout = parseInt(process.env.REACT_APP_WALLPAPER_TIMEOUT) * 1000 // seconds to to ms
 const rest_url = process.env.REACT_APP_UNSPLASH_API_URL
@@ -92,7 +93,7 @@ export default class View extends Theme {
         return(
             <div className='Wallpaper'>
                 <this.DynamicWallpaper/>
-                <div className="Body UnderHeader OverFooter">
+                <div className="Body">
                     {this.props.children}
                 </div>
                 <Reference profileUrl={this.fromMetadata('user', 'links', 'html')}
