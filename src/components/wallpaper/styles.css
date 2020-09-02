@@ -147,31 +147,3 @@
     margin-right: 15px;
     top: 7px;
 }
-
-.ShareGridCard {
-    color: #1e1e1e;
-    max-width: 80px;
-
-    text-align: center !important;
-    
-}
-
-.ShareGridCard.Dark {
-    color: #e6e6e6 !important;
-}
-
-.ShareIcon {
-    margin-top: 4px;
-}
-
-.ShareLabel {
-    width: 100%;
-    text-align: center;
-    align-items: center;
-}
-
-.SharePrefix {
-    color: #7e7e7e;
-    text-align: center;
-    font-size: 14px;
-}

@@ -31,11 +31,15 @@ const separator = ' | '
 const ShareTitle = 'Share post by\t'
 
 export default class ShareDialog extends Component {
-
     constructor(props) {
         super(props)
-
         this.getShareItems = this.getShareItems.bind(this)
+    }
+
+    componentWillReceiveProps(props) {
+        this.setState({
+            open: props.open,
+        })
     }
 
     getShareItems() {
@@ -58,8 +62,8 @@ export default class ShareDialog extends Component {
         const CustomTitle = factory.NewDialogTitle()
 
         return (
-            <Dialog onClose={() => this.props.onClose(factory.ShareKey)}
-                    onClick={() => this.props.onClose(factory.ShareKey)}
+            <Dialog onClose={this.props.onClose}
+                    onClick={this.props.onClose}
                     open={this.props.open}
                     PaperProps={PaperStyle}>
                 <CustomTitle>

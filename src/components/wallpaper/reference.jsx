@@ -3,7 +3,7 @@ import Theme from '../theme/theme'
 import { Info } from '@material-ui/icons'
 import Miniature from './miniature'
 import * as itos from '../../commons/parse/itos'
-import ShareDialog from './share'
+import ShareDialog from '../share/share'
 import { Collapse, Fade } from "@material-ui/core"
 import * as factory from './factory'
 import './styles.css'
@@ -28,7 +28,7 @@ export default class Reference extends Theme {
         this.onMouseEnterHandler = this.onMouseEnterHandler.bind(this)
         this.onMouseLeaveHandler = this.onMouseLeaveHandler.bind(this)
         this.handleClick = this.handleClick.bind(this)
-        this.onClose = this.onClose.bind(this)
+        this.hide = this.hide.bind(this)
 
         this.state = {
             visible: props.visible?? false,
@@ -75,17 +75,11 @@ export default class Reference extends Theme {
         }
     }
 
-    onClose(name) {
-        switch (name) {            
-            case factory.ShareKey:
-                this.setState({
-                    visible: false,
-                    sharing: false,
-                })
-                break
-            default:
-                break
-        }
+    hide() {
+        this.setState({
+            visible: false,
+            sharing: false,
+        })
     }
 
     render() {
@@ -93,8 +87,7 @@ export default class Reference extends Theme {
             <div>
                 <ShareDialog open={this.state.sharing}
                              share={this.share}
-                             onClose={this.onClose}
-                             onClick={this.onClose}/>
+                             onClose={this.hide}/>
                 <Collapse in={this.state.visible}
                           collapsedHeight={40}
                           className='Miniature'
