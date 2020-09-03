@@ -7,7 +7,9 @@ import GoogleButton from "../../commons/button/google/login";
 function Home() {
   return (
     <Fragment>
-      <GoogleButton/>
+      <div className="HomeView">
+        <GoogleButton/>
+      </div>
     </Fragment>
   );
 }
