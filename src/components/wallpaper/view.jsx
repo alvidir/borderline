@@ -10,7 +10,6 @@ import '../header/styles.css'
 const timeout = parseInt(process.env.REACT_APP_WALLPAPER_TIMEOUT) * 1000 // seconds to to ms
 const rest_url = process.env.REACT_APP_UNSPLASH_API_URL
 const wallpaper_srv = rest_url + process.env.REACT_APP_REST_SRV_WALLPAPER
-console.log('Set wallpaper service at ', wallpaper_srv)
 
 export default class View extends Theme {
     state = {

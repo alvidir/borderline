@@ -17,6 +17,10 @@ grpc.web = require('grpc-web');
 
 
 var proto_session_login_pb = require('../../proto/session/login_pb.js')
+
+var proto_session_logout_pb = require('../../proto/session/logout_pb.js')
+
+var proto_session_signup_pb = require('../../proto/session/signup_pb.js')
 const proto = {};
 proto.session = require('./session_pb.js');
 
@@ -76,13 +80,13 @@ proto.session.SessionPromiseClient =
  * @const
  * @type {!grpc.web.MethodDescriptor<
  *   !proto.session.LoginRequest,
- *   !proto.session.LoginResponse>}
+ *   !proto.session.SessionResponse>}
  */
-const methodDescriptor_Session_UserLogin = new grpc.web.MethodDescriptor(
-  '/session.Session/UserLogin',
+const methodDescriptor_Session_Login = new grpc.web.MethodDescriptor(
+  '/session.Session/Login',
   grpc.web.MethodType.UNARY,
   proto_session_login_pb.LoginRequest,
-  proto_session_login_pb.LoginResponse,
+  proto.session.SessionResponse,
   /**
    * @param {!proto.session.LoginRequest} request
    * @return {!Uint8Array}
@@ -90,7 +94,7 @@ const methodDescriptor_Session_UserLogin = new grpc.web.MethodDescriptor(
   function(request) {
     return request.serializeBinary();
   },
-  proto_session_login_pb.LoginResponse.deserializeBinary
+  proto.session.SessionResponse.deserializeBinary
 );
 
 
@@ -98,10 +102,10 @@ const methodDescriptor_Session_UserLogin = new grpc.web.MethodDescriptor(
  * @const
  * @type {!grpc.web.AbstractClientBase.MethodInfo<
  *   !proto.session.LoginRequest,
- *   !proto.session.LoginResponse>}
+ *   !proto.session.SessionResponse>}
  */
-const methodInfo_Session_UserLogin = new grpc.web.AbstractClientBase.MethodInfo(
-  proto_session_login_pb.LoginResponse,
+const methodInfo_Session_Login = new grpc.web.AbstractClientBase.MethodInfo(
+  proto.session.SessionResponse,
   /**
    * @param {!proto.session.LoginRequest} request
    * @return {!Uint8Array}
@@ -109,7 +113,7 @@ const methodInfo_Session_UserLogin = new grpc.web.AbstractClientBase.MethodInfo(
   function(request) {
     return request.serializeBinary();
   },
-  proto_session_login_pb.LoginResponse.deserializeBinary
+  proto.session.SessionResponse.deserializeBinary
 );
 
 
@@ -118,18 +122,18 @@ const methodInfo_Session_UserLogin = new grpc.web.AbstractClientBase.MethodInfo(
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.Error, ?proto.session.LoginResponse)}
+ * @param {function(?grpc.web.Error, ?proto.session.SessionResponse)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.session.LoginResponse>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.session.SessionResponse>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.session.SessionClient.prototype.userLogin =
+proto.session.SessionClient.prototype.login =
     function(request, metadata, callback) {
   return this.client_.rpcCall(this.hostname_ +
-      '/session.Session/UserLogin',
+      '/session.Session/Login',
       request,
       metadata || {},
-      methodDescriptor_Session_UserLogin,
+      methodDescriptor_Session_Login,
       callback);
 };
 
@@ -139,16 +143,256 @@ proto.session.SessionClient.prototype.userLogin =
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.session.LoginResponse>}
+ * @return {!Promise<!proto.session.SessionResponse>}
  *     A native promise that resolves to the response
  */
-proto.session.SessionPromiseClient.prototype.userLogin =
+proto.session.SessionPromiseClient.prototype.login =
     function(request, metadata) {
   return this.client_.unaryCall(this.hostname_ +
-      '/session.Session/UserLogin',
+      '/session.Session/Login',
       request,
       metadata || {},
-      methodDescriptor_Session_UserLogin);
+      methodDescriptor_Session_Login);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.session.GoogleLoginRequest,
+ *   !proto.session.SessionResponse>}
+ */
+const methodDescriptor_Session_GoogleLogin = new grpc.web.MethodDescriptor(
+  '/session.Session/GoogleLogin',
+  grpc.web.MethodType.UNARY,
+  proto_session_login_pb.GoogleLoginRequest,
+  proto.session.SessionResponse,
+  /**
+   * @param {!proto.session.GoogleLoginRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.session.SessionResponse.deserializeBinary
+);
+
+
+/**
+ * @const
+ * @type {!grpc.web.AbstractClientBase.MethodInfo<
+ *   !proto.session.GoogleLoginRequest,
+ *   !proto.session.SessionResponse>}
+ */
+const methodInfo_Session_GoogleLogin = new grpc.web.AbstractClientBase.MethodInfo(
+  proto.session.SessionResponse,
+  /**
+   * @param {!proto.session.GoogleLoginRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.session.SessionResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.session.GoogleLoginRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.Error, ?proto.session.SessionResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.session.SessionResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.session.SessionClient.prototype.googleLogin =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/session.Session/GoogleLogin',
+      request,
+      metadata || {},
+      methodDescriptor_Session_GoogleLogin,
+      callback);
+};
+
+
+/**
+ * @param {!proto.session.GoogleLoginRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.session.SessionResponse>}
+ *     A native promise that resolves to the response
+ */
+proto.session.SessionPromiseClient.prototype.googleLogin =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/session.Session/GoogleLogin',
+      request,
+      metadata || {},
+      methodDescriptor_Session_GoogleLogin);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.session.LogoutRequest,
+ *   !proto.session.SessionResponse>}
+ */
+const methodDescriptor_Session_Logout = new grpc.web.MethodDescriptor(
+  '/session.Session/Logout',
+  grpc.web.MethodType.UNARY,
+  proto_session_logout_pb.LogoutRequest,
+  proto.session.SessionResponse,
+  /**
+   * @param {!proto.session.LogoutRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.session.SessionResponse.deserializeBinary
+);
+
+
+/**
+ * @const
+ * @type {!grpc.web.AbstractClientBase.MethodInfo<
+ *   !proto.session.LogoutRequest,
+ *   !proto.session.SessionResponse>}
+ */
+const methodInfo_Session_Logout = new grpc.web.AbstractClientBase.MethodInfo(
+  proto.session.SessionResponse,
+  /**
+   * @param {!proto.session.LogoutRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.session.SessionResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.session.LogoutRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.Error, ?proto.session.SessionResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.session.SessionResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.session.SessionClient.prototype.logout =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/session.Session/Logout',
+      request,
+      metadata || {},
+      methodDescriptor_Session_Logout,
+      callback);
+};
+
+
+/**
+ * @param {!proto.session.LogoutRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.session.SessionResponse>}
+ *     A native promise that resolves to the response
+ */
+proto.session.SessionPromiseClient.prototype.logout =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/session.Session/Logout',
+      request,
+      metadata || {},
+      methodDescriptor_Session_Logout);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.session.SignupRequest,
+ *   !proto.session.SessionResponse>}
+ */
+const methodDescriptor_Session_Signup = new grpc.web.MethodDescriptor(
+  '/session.Session/Signup',
+  grpc.web.MethodType.UNARY,
+  proto_session_signup_pb.SignupRequest,
+  proto.session.SessionResponse,
+  /**
+   * @param {!proto.session.SignupRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.session.SessionResponse.deserializeBinary
+);
+
+
+/**
+ * @const
+ * @type {!grpc.web.AbstractClientBase.MethodInfo<
+ *   !proto.session.SignupRequest,
+ *   !proto.session.SessionResponse>}
+ */
+const methodInfo_Session_Signup = new grpc.web.AbstractClientBase.MethodInfo(
+  proto.session.SessionResponse,
+  /**
+   * @param {!proto.session.SignupRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.session.SessionResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.session.SignupRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.Error, ?proto.session.SessionResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.session.SessionResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.session.SessionClient.prototype.signup =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/session.Session/Signup',
+      request,
+      metadata || {},
+      methodDescriptor_Session_Signup,
+      callback);
+};
+
+
+/**
+ * @param {!proto.session.SignupRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.session.SessionResponse>}
+ *     A native promise that resolves to the response
+ */
+proto.session.SessionPromiseClient.prototype.signup =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/session.Session/Signup',
+      request,
+      metadata || {},
+      methodDescriptor_Session_Signup);
 };
 
 

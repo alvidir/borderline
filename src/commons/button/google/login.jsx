@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import GoogleLogin from "react-google-login"
 
-import { LoginRequest } from "../../../proto/session/login_pb"
+import { GoogleLoginRequest } from "../../../proto/session/login_pb"
 import { SessionClient } from "../../../proto/session/session_grpc_web_pb"
 
 document.cookie = 'cross-site-cookie=google SameSite=None Secure'
@@ -9,7 +9,6 @@ document.cookie = 'cross-site-cookie=google SameSite=None Secure'
 const source_url = process.env.REACT_APP_PROTO_URL
 const session_srv = process.env.REACT_APP_PROTO_SRV_SESSION
 const session_client = new SessionClient(source_url + session_srv, null, null)
-console.log("Set session client on ", source_url + session_srv)
 
 export default class GoogleButton extends Component {
     state = {
@@ -25,14 +24,15 @@ export default class GoogleButton extends Component {
     }
 
     onLoginSucceed = (response) => {
-        console.log(response)
-        console.log(response.profileObj)
-
-        const req = new LoginRequest()
-        req.setNickname("test")
-        req.setEmail("test@testing.com")
+        const profile = response.profileObj
+        const req = new GoogleLoginRequest()
         
-        session_client.userLogin(req, {}, this.onSourceResponse)
+        req.setUsername(profile.name)
+        req.setEmail(profile.email)
+        req.setGoogleid(profile.googleId)
+        req.setImageurl(profile.imageUrl)
+        
+        session_client.googleLogin(req, {}, this.onSourceResponse)
     }
 
     onLoginFailed = (response) => {

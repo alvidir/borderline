@@ -8,8 +8,6 @@ import { WithCustomTheme } from '../menu/items/custom'
 import SearchBar from '../search/search'
 import './styles.css'
 
-const MoreHorizName = 'MoreOps'
-
 export default class Options extends Theme {
     state = {
         MoreOpsMenuVisible: false,
@@ -24,24 +22,20 @@ export default class Options extends Theme {
         this.renderMenuItems = this.renderMenuItems.bind(this)
     }
 
-    onMouseEnterHandler(name){
+    onMouseEnterHandler(){
         this.setState({
             MoreOpsMenuVisible: true
         })
     }
 
-    onMouseLeaveHandler(name){
+    onMouseLeaveHandler(){
         this.setState({
             MoreOpsMenuVisible: false
         })
     }
 
-    onClickHanlder(name){
-        if (name === MoreHorizName){
-            this.setState({
-                FixMoreOps: !this.state.FixMoreOps
-            })
-        }
+    onClickHanlder(){
+        
     }
 
     renderMenuItems() {
@@ -59,9 +53,9 @@ export default class Options extends Theme {
                 <Sticker className={`Item ${currentTheme}`}/>
 
                 <Button className="Discret"
-                        onMouseEnter={() => this.onMouseEnterHandler(MoreHorizName)}
-                        onMouseLeave={() => this.onMouseLeaveHandler(MoreHorizName)}
-                        onClick={() => this.onClickHanlder(MoreHorizName)}>
+                        onMouseEnter={this.onMouseEnterHandler}
+                        onMouseLeave={this.onMouseLeaveHandler}
+                        onClick={this.onClickHanlder}>
                     <MoreHoriz className={`Item ${currentTheme}`}/>
                 </Button>
 

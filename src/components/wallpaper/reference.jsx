@@ -24,21 +24,30 @@ export default class Reference extends Theme {
         visible: false,
         variant: undefined,
         sharing: false,
+        focused: true,
     }
 
     constructor(props) {
         super(props)
+        this.onChange = this.onChange.bind(this)
         this.onMouseEnterHandler = this.onMouseEnterHandler.bind(this)
         this.onMouseLeaveHandler = this.onMouseLeaveHandler.bind(this)
         this.handleClick = this.handleClick.bind(this)
         this.getIconStyle = this.getIconStyle.bind(this)
         this.hide = this.hide.bind(this)
 
+        document.addEventListener("visibilitychange", this.onChange);
+
         this.state = {
             visible: props.visible?? false,
             variant: undefined,
             sharing: false,
+            focused: true,
         }
+    }
+
+    onChange(props) {
+        this.setState({focused: !this.state.focused})
     }
 
     componentDidUpdate() {
@@ -46,9 +55,13 @@ export default class Reference extends Theme {
             !this.state.visible &&
             !this.state.variant){
 
-            setTimeout(() => this.setState({
-                variant: this.state.visible? undefined : 'Minimized'
-            }), TransitionTime)
+            setTimeout(() => {
+                if (this.state.focused){
+                    this.setState({
+                        variant: this.state.visible? undefined : 'Minimized'
+                    })
+                }
+            }, TransitionTime)
 
         } else if (!this.props.hidden &&
                    this.state.variant) {
